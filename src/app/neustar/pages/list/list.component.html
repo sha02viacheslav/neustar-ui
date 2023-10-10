@@ -1,0 +1,73 @@
+<div class="page-wrap">
+  <app-back-link defaultBackTo="/" style="justify-content: left"></app-back-link>
+  <!-- TODO: edit titles -->
+  <h1>{{ titles[0] }}</h1>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16">
+    <mat-button-toggle-group (change)="handleChangeType($event)" appearance="legacy">
+      <mat-button-toggle *ngFor="let option of typeOptions" [value]="option.value">{{
+        option.label
+      }}</mat-button-toggle>
+    </mat-button-toggle-group>
+    <button mat-raised-button (click)="exportXls()">Export</button>
+    <app-date-filter (onChange)="handleChangeDateFilter($event)"></app-date-filter>
+    <app-search (onChange)="handleChangeSearch($event)"></app-search>
+  </div>
+
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      class="mat-elevation-z8"
+      matSort
+      matSortActive="sr"
+      matSortDirection="asc"
+      matSortDisableClear
+    >
+      <!-- TO DO: add columns -->
+      <!-- Column Template -->
+      <ng-container matColumnDef="sr">
+        <th mat-header-cell *matHeaderCellDef>Column Template</th>
+        <td mat-cell *matCellDef="let element">{{ element.sr }}</td>
+      </ng-container>
+
+      <!-- Expand Button -->
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation()"
+          >
+            <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <!-- Expanded View -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+          <div class="expand-wrap" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
+            <!-- TODO: add columns for expanded record -->
+            <!-- Data Template -->
+            <div class="list-item" *ngIf="element.projectmanager">
+              <strong>Data Template:</strong>{{ element.projectmanager }}
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: columnsToDisplayWithExpand"
+        class="element-row"
+        [class.expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element"
+      ></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+    </table>
+  </div>
+
+  <mat-paginator #paginator [length]="totalCnt" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>

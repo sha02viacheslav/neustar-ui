@@ -1,0 +1,20 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import './palettes', './config';
+
+// LIGHT THEME
+
+$dashboard-primary: mat.define-palette($core-blue-palette);
+$dashboard-accent: mat.define-palette($navy-palette);
+$dashboard-warn: mat.define-palette(mat.$red-palette);
+
+$dashboard-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $dashboard-primary,
+      accent: $dashboard-accent,
+      warn: $dashboard-warn,
+    ),
+    typography: $dashboard-typography,
+  )
+);

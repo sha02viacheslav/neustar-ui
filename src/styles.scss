@@ -1,0 +1,36 @@
+@use '@angular/material' as mat;
+
+@import './styles/colors', './styles/light', './styles/config', './styles/common';
+
+@include mat.core();
+
+// Define theme for material components used
+@include mat.core-theme($dashboard-theme);
+@include mat.toolbar-theme($dashboard-theme);
+@include mat.icon-theme($dashboard-theme);
+@include mat.tabs-theme($dashboard-theme);
+@include mat.form-field-theme($dashboard-theme);
+@include mat.select-theme($dashboard-theme);
+@include mat.option-theme($dashboard-theme);
+@include mat.table-theme($dashboard-theme);
+@include mat.checkbox-theme($dashboard-theme);
+@include mat.paginator-theme($dashboard-theme);
+@include mat.sort-theme($dashboard-theme);
+@include mat.progress-spinner-theme($dashboard-theme);
+@include mat.snack-bar-theme($dashboard-theme);
+@include mat.datepicker-theme($dashboard-theme);
+@include mat.button-theme($dashboard-theme);
+@include mat.icon-theme($dashboard-theme);
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.block-ui-wrapper {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
