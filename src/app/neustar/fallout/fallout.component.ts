@@ -105,7 +105,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
       }),
     );
 
-    Promise.all(promises).then((res) => {
+    Promise.all(promises).then(() => {
       this.loadChart();
       this.blockUIService.stop('APP');
     });
@@ -132,9 +132,8 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         search: this.search || '',
         pageIndex: this.paginator?.pageIndex || 1,
         pageSize: this.paginator?.pageSize || 10,
-        // TODO: Update sort and order
-        // sort: this.sort?.active || 'start_time',
-        // order: this.sort?.direction || 'desc',
+        sort: this.sort?.active || 'start_time',
+        order: this.sort?.direction || 'desc',
         ...this.dateFilter,
         // TODO: Update rawWhere
         rawWhere: "bot_execution_status LIKE '%Fallout%'",
@@ -190,9 +189,8 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     this.apiService
       .getList({
         search: this.search || '',
-        // TODO: Update sort and order
-        // sort: this.sort?.active || 'start_time',
-        // order: this.sort?.direction || 'desc',
+        sort: this.sort?.active || 'start_time',
+        order: this.sort?.direction || 'desc',
         ...this.dateFilter,
         // TODO: Update rawWhere
         rawWhere: "bot_execution_status LIKE '%Fallout%'",
