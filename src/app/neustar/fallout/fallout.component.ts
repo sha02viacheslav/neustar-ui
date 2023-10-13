@@ -183,6 +183,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
           const dataToExport = res.result.data.map((rawData) => {
             return {
               'Carrier ID': rawData.carrierid,
+              Tracker: rawData.tracker_file_path?.split('\\')?.pop() || 'N/A',
               'Automation Status': rawData.bot_execution_status,
               Exception: rawData.exception,
               'Exception Logs': rawData.exception_logs,
