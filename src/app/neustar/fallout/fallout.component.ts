@@ -29,7 +29,14 @@ import { BlockUIService } from 'ng-block-ui';
   ],
 })
 export class FalloutComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['end_time', 'carrierid', 'bot_execution_status', 'exception', 'invalid_pon_count'];
+  displayedColumns: string[] = [
+    'end_time',
+    'carrierid',
+    'tracker_file_path',
+    'bot_execution_status',
+    'exception',
+    'invalid_pon_count',
+  ];
   columnsToDisplayWithExpand: string[] = ['expand', ...this.displayedColumns];
   expandedElement: NeustarOrderInsights | null;
   dataSource: MatTableDataSource<NeustarOrderInsights>;

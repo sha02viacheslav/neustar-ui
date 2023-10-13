@@ -8,7 +8,10 @@ import { Location } from '@angular/common';
 })
 export class DashboardComponent {
   // TODO: update tabs
-  tabs = [{ link: '/summary', label: 'Summary' }];
+  tabs = [
+    { link: '/summary', label: 'Summary' },
+    { link: '/fallout', label: 'Fallout' },
+  ];
   activeLink: string;
 
   constructor(private location: Location) {

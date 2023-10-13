@@ -34,19 +34,23 @@
       </ng-container>
       <ng-container matColumnDef="carrierid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Carrier</th>
-        <td mat-cell *matCellDef="let element">{{ element.carrierid | date: 'MM/dd/YY' }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.carrierid }}</td>
+      </ng-container>
+      <ng-container matColumnDef="tracker_file_path">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Tracker</th>
+        <td mat-cell *matCellDef="let element">{{ element.tracker_file_path?.split('\\')?.pop() || 'N/A' }}</td>
       </ng-container>
       <ng-container matColumnDef="bot_execution_status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Automation Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.bot_execution_status | date: 'MM/dd/YY' }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.bot_execution_status }}</td>
       </ng-container>
       <ng-container matColumnDef="exception">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Exception</th>
-        <td mat-cell *matCellDef="let element">{{ element.exception | date: 'MM/dd/YY' }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.exception || 'N/A' }}</td>
       </ng-container>
       <ng-container matColumnDef="invalid_pon_count">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Invalid PON Count</th>
-        <td mat-cell *matCellDef="let element">{{ element.invalid_pon_count | date: 'MM/dd/YY' }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.invalid_pon_count }}</td>
       </ng-container>
       <ng-container matColumnDef="expand">
         <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -62,7 +66,7 @@
       </ng-container>
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-          <div class="expand-wrap" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="expand-wrap" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
             <div class="list-item"><strong>Upload Status: </strong>{{ element.template_upload_status }}</div>
             <div class="list-item">
               <strong>Total Records: </strong>{{ element.total_count }}
