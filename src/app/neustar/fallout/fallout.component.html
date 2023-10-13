@@ -1,6 +1,11 @@
 <div class="page-wrap">
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16">
-    <app-date-filter (onChange)="handleChangeDateFilter($event)"></app-date-filter>
+    <mat-button-toggle-group [(ngModel)]="dateRange" (change)="handleChangeDateRange()" appearance="legacy">
+      <mat-button-toggle *ngFor="let option of dateRangeOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    <app-date-filter #dateFilter (onChange)="handleChangeDateFilter($event)"></app-date-filter>
     <app-search (onChange)="handleChangeSearch($event)"></app-search>
     <button mat-raised-button (click)="exportXls()">Export</button>
   </div>

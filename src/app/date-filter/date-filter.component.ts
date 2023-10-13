@@ -1,15 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-
-export enum DateRangeType {
-  WEEK = 'WEEK',
-  MONTH = 'MONTH',
-  QUARTER = 'QUARTER',
-  YTD = 'YTD',
-  YEARLY = 'YEARLY',
-  CUSTOM = 'CUSTOM',
-}
+import { DateRangeType } from '@enums';
 
 @Component({
   selector: 'app-date-filter',
@@ -95,5 +87,9 @@ export class DateFilterComponent implements OnInit {
         break;
       }
     }
+  }
+
+  public clear() {
+    this.range.patchValue({ start: null, end: null });
   }
 }

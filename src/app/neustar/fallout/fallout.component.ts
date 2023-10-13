@@ -13,6 +13,8 @@ import * as moment from 'moment/moment';
 import { ToastrService } from 'ngx-toastr';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { BlockUIService } from 'ng-block-ui';
+import { DateFilterComponent } from '../../date-filter/date-filter.component';
+import { DateRangeType } from '@enums';
 
 // TODO: add unsubscribe Subject and takeUntil for all subscribers
 
@@ -42,6 +44,12 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   dataSource: MatTableDataSource<NeustarOrderInsights>;
   totalCount: number;
   dateFilter: { start: string; end: string };
+  dateRangeOptions = [
+    { label: 'This Week', value: DateRangeType.THIS_WEEK },
+    { label: 'This Month', value: DateRangeType.THIS_MONTH },
+    { label: 'This Year', value: DateRangeType.THIS_YEAR },
+  ];
+  dateRange: DateRangeType;
 
   chartData: ChartData;
   chartType: ChartType = 'bar';
@@ -60,6 +68,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('dateFilter') dateFilterComponent: DateFilterComponent;
 
   constructor(
     private apiService: ApiService,
@@ -149,8 +158,29 @@ export class FalloutComponent implements OnInit, AfterViewInit {
       .subscribe(console.log);
   }
 
+  handleChangeDateRange() {
+    this.dateFilterComponent.clear();
+    switch (this.dateRange) {
+      case DateRangeType.THIS_WEEK: {
+        this.dateFilter = { start: moment().startOf('week').format('YYYY-MM-DD'), end: moment().format('YYYY-MM-DD') };
+        break;
+      }
+      case DateRangeType.THIS_MONTH: {
+        this.dateFilter = { start: moment().startOf('month').format('YYYY-MM-DD'), end: moment().format('YYYY-MM-DD') };
+        break;
+      }
+      case DateRangeType.THIS_YEAR: {
+        this.dateFilter = { start: moment().startOf('year').format('YYYY-MM-DD'), end: moment().format('YYYY-MM-DD') };
+        break;
+      }
+    }
+    this.getList();
+    this.loadData();
+  }
+
   handleChangeDateFilter(value: { start: string; end: string }) {
     this.dateFilter = value;
+    this.dateRange = null;
     this.getList();
     this.loadData();
   }

@@ -102,3 +102,13 @@ tr.element-row:not(.expanded-row):active {
 :host ::ng-deep .search-box-wrap .mat-mdc-form-field-subscript-wrapper {
   display: none;
 }
+
+.mat-button-toggle {
+  background-color: $white;
+  color: $dark-grey;
+}
+
+.mat-button-toggle-checked {
+  background-color: $core-blue;
+  color: $white;
+}
