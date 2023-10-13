@@ -38,6 +38,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     'bot_execution_status',
     'exception',
     'invalid_pon_count',
+    'retry',
   ];
   columnsToDisplayWithExpand: string[] = ['expand', ...this.displayedColumns];
   expandedElement: NeustarOrderInsights | null;
@@ -126,6 +127,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   }
 
   private getList() {
+    console.log('GET List');
     this.blockUIService.start('APP', `Loading...`);
     this.apiService
       .getList({
@@ -182,6 +184,18 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     this.dateRange = null;
     this.getList();
     this.loadData();
+  }
+
+  handleChangeSearch(value: string) {
+    this.search = value;
+    this.getList();
+  }
+
+  retryFallout(id: number) {
+    this.blockUIService.start('APP', `Retrying Fallout...`);
+    this.apiService.retryFallout(id).subscribe(() => {
+      this.blockUIService.stop('APP');
+    });
   }
 
   exportXls() {
@@ -242,10 +256,5 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         }),
       )
       .subscribe(console.log);
-  }
-
-  handleChangeSearch(value: string) {
-    this.search = value;
-    this.getList();
   }
 }

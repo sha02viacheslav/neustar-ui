@@ -43,7 +43,6 @@ export class SearchResultComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.getList();
     this.searchService.searchInput$.pipe(debounceTime(600)).subscribe(() => {
       if (this.searchService.showSearchResult) {
         this.getList();
@@ -68,7 +67,7 @@ export class SearchResultComponent implements OnInit, AfterViewInit {
         search: this.searchService.search || '',
         pageIndex: this.paginator?.pageIndex || 1,
         pageSize: this.paginator?.pageSize || 10,
-        sort: this.sort?.active || 'enddate',
+        sort: this.sort?.active || 'start_time',
         order: this.sort?.direction || 'desc',
       })
       .subscribe(

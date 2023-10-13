@@ -36,6 +36,14 @@ export class ApiService {
     return this.http.get<ApiResponse<any>>(this.apiUrl + `/neustar/${id}`, { withCredentials: true });
   }
 
+  retryFallout(id: number): Observable<ApiResponse<NeustarOrderInsights>> {
+    return this.http.post<ApiResponse<any>>(
+      this.apiUrl + `/neustar/retry-fallout/${id}`,
+      {},
+      { withCredentials: true },
+    );
+  }
+
   // Error handling
   handleError(error: any) {
     let errorMessage = '';
