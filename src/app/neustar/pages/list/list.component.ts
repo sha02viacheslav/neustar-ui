@@ -8,7 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as XLSX from 'xlsx';
-import { NeustarOrderInsights } from '@models';
+import { NeustarTemplateUpload } from '@models';
 import { debounceTime, merge } from 'rxjs';
 import { sanitizeData } from 'src/app/@core/utils';
 import { ApiService } from 'src/app/api.service';
@@ -38,8 +38,8 @@ export class ListComponent {
     // TODO: update displayedColumns
   ];
   columnsToDisplayWithExpand: string[] = ['expand', ...this.displayedColumns];
-  expandedElement: NeustarOrderInsights | null;
-  dataSource: MatTableDataSource<NeustarOrderInsights>;
+  expandedElement: NeustarTemplateUpload | null;
+  dataSource: MatTableDataSource<NeustarTemplateUpload>;
   totalCnt: number;
   dateFilter: { start: string; end: string };
   // typeOptions: { value: SummaryType; label: string }[] = [];

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NeustarOrderInsights } from '@models';
+import { NeustarTemplateUpload } from '@models';
 import { ApiService } from 'src/app/api.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/api.service';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit {
-  table: NeustarOrderInsights;
+  table: NeustarTemplateUpload;
   isLoading = false;
 
   constructor(

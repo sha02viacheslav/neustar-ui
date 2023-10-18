@@ -1,6 +1,5 @@
-export interface NeustarOrderInsights {
-  // TODO: update ID field
-  id: number;
+export interface NeustarTemplateUpload {
+  rowid: number;
   carrierid: string;
   tracker_file_path: string;
   template_upload_status: string;

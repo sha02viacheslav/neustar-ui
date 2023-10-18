@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { NeustarOrderInsights } from '@models';
+import { NeustarTemplateUpload } from '@models';
 import { debounceTime, merge } from 'rxjs';
 import { ApiService } from 'src/app/api.service';
 import { SearchService } from '../../@core/services';
@@ -28,8 +28,8 @@ export class SearchResultComponent implements OnInit, AfterViewInit {
   // TODO: Update displayedColumns
   displayedColumns: string[] = [];
   columnsToDisplayWithExpand: string[] = ['expand', ...this.displayedColumns];
-  expandedElement: NeustarOrderInsights | null;
-  dataSource: MatTableDataSource<NeustarOrderInsights>;
+  expandedElement: NeustarTemplateUpload | null;
+  dataSource: MatTableDataSource<NeustarTemplateUpload>;
   totalCnt: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
