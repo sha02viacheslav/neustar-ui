@@ -28,6 +28,9 @@ import { ListComponent } from './pages/list/list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { BreakdownTableComponent } from './breakdown-table/breakdown-table.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { TrackerMappingComponent } from './pages/tracker-mapping/tracker-mapping.component';
+import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracker-mapping-list.component';
 
 // TODO: update with components
 
@@ -42,6 +45,8 @@ import { BreakdownTableComponent } from './breakdown-table/breakdown-table.compo
     DashboardComponent,
     SearchResultComponent,
     BreakdownTableComponent,
+    TrackerMappingComponent,
+    TrackerMappingListComponent,
   ],
   imports: [
     CommonModule,
@@ -61,6 +66,7 @@ import { BreakdownTableComponent } from './breakdown-table/breakdown-table.compo
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatMenuModule,
     DateFilterModule,
     SharedModule,
   ],

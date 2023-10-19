@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { ApiResponse, Filter, NeustarTemplateUpload, Pagination } from '@models';
+import { Observable } from 'rxjs';
+import { ApiResponse, Filter, NeustarTemplateUpload, NeustarTrackerMapping, Pagination } from '@models';
 import { environment } from 'src/environments/environment';
 
 // TODO: replace prodUrl
@@ -38,6 +38,39 @@ export class ApiService {
       this.apiUrl + `/neustar/retry-fallout/${id}`,
       {},
       { withCredentials: true },
+    );
+  }
+
+  createTrackerMapping(data: NeustarTrackerMapping): Observable<ApiResponse<NeustarTrackerMapping>> {
+    return this.http.post<ApiResponse<NeustarTrackerMapping>>(this.apiUrl + `/tracker-mapping`, data, {
+      withCredentials: true,
+    });
+  }
+
+  getTrackerMappings(filter: Filter): Observable<ApiResponse<Pagination<NeustarTrackerMapping>>> {
+    return this.http.get<ApiResponse<any>>(this.apiUrl + '/tracker-mapping', {
+      withCredentials: true,
+      params: { ...filter },
+    });
+  }
+
+  getTrackerMapping(carrier: string, tracker: string): Observable<ApiResponse<NeustarTrackerMapping>> {
+    return this.http.get<ApiResponse<NeustarTrackerMapping>>(this.apiUrl + `/tracker-mapping/${carrier}/${tracker}`, {
+      withCredentials: true,
+    });
+  }
+
+  updateTrackerMapping(
+    carrier: string,
+    tracker: string,
+    data: NeustarTrackerMapping,
+  ): Observable<ApiResponse<NeustarTrackerMapping>> {
+    return this.http.post<ApiResponse<NeustarTrackerMapping>>(
+      this.apiUrl + `/tracker-mapping/${carrier}/${tracker}`,
+      data,
+      {
+        withCredentials: true,
+      },
     );
   }
 }

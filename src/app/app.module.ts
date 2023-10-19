@@ -24,7 +24,9 @@ import { BlockUIModule } from 'ng-block-ui';
       closeButton: true,
       tapToDismiss: false,
     }),
-    BlockUIModule.forRoot(),
+    BlockUIModule.forRoot({
+      delayStop: 600,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

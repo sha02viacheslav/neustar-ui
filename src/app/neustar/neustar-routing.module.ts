@@ -6,6 +6,8 @@ import { DetailComponent } from './pages/detail/detail.component';
 import { ListComponent } from './pages/list/list.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FalloutComponent } from './fallout/fallout.component';
+import { TrackerMappingComponent } from './pages/tracker-mapping/tracker-mapping.component';
+import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracker-mapping-list.component';
 
 // TODO: update routes
 
@@ -29,6 +31,21 @@ const routes: Routes = [
             pathMatch: 'full',
           },
         ],
+      },
+      {
+        path: 'tracker-mapping-list',
+        component: TrackerMappingListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'tracker-mapping',
+        component: TrackerMappingComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'tracker-mapping/:carrier/:tracker',
+        component: TrackerMappingComponent,
+        canActivate: [AuthGuard],
       },
       {
         path: 'list/:summaryType',

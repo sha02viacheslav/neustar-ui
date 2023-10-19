@@ -1,0 +1,50 @@
+<div class="page-wrap">
+  <app-back-link *ngIf="isEdit" defaultBackTo="/" style="justify-content: left"></app-back-link>
+
+  <ng-container *ngIf="!succeeded">
+    <ng-container *ngIf="headers?.length; else importButton">
+      <form [formGroup]="trackerForm" class="form-wrap">
+        <div class="tracker-title">Map Fields</div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
+          <div *ngFor="let field of fields" fxFlex="49%">
+            <mat-form-field fxFlex appearance="outline" color="primary">
+              <mat-label>{{ field.label }}</mat-label>
+
+              <input *ngIf="field.isInput" type="text" [formControlName]="field.key" matInput />
+              <mat-select *ngIf="!field.isInput" [formControlName]="field.key">
+                <mat-option *ngFor="let item of headers" [value]="item.value">
+                  {{ item.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+
+      <div fxLayout="row" fxLayoutAlign="space-between" class="submit-wrap">
+        <button *ngIf="!isEdit" mat-raised-button (click)="cancel()">Cancel</button>
+        <button *ngIf="isEdit" mat-raised-button routerLink="/tracker-mapping-list">Cancel</button>
+        <button mat-raised-button color="primary" (click)="submit()">{{ isEdit ? 'Save' : 'Submit' }}</button>
+      </div>
+    </ng-container>
+
+    <ng-template #importButton>
+      <div *ngIf="!isEdit" class="import-button-wrap">
+        <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Tracker</button>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <div *ngIf="succeeded" class="success-wrap">
+    <div class="title">Tracker Mapping Complete</div>
+    <div class="description">New tracker mapping saved</div>
+
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="16">
+      <button mat-raised-button color="primary" (click)="cancel()">Add Another Tracker</button>
+      <button mat-raised-button color="primary" routerLink="/tracker-mapping-list">View Tracker Mappings</button>
+      <button mat-raised-button color="primary" routerLink="/fallout">Return to Fallout</button>
+    </div>
+  </div>
+</div>
+
+<input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx" class="d-none" />

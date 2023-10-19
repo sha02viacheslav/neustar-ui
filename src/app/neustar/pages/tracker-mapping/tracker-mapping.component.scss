@@ -1,0 +1,46 @@
+@import '../../../../styles/colors', '../../../../styles/config';
+
+.import-button-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30vh;
+}
+
+.success-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30vh;
+  font-size: 20px;
+  color: $grey;
+
+  .title {
+    font-size: 24px;
+    color: $navy;
+    margin-bottom: 16px;
+    font-width: 700;
+  }
+
+  .description {
+    margin-bottom: 48px;
+  }
+}
+
+.form-wrap {
+  margin-top: 24px;
+}
+
+.tracker-title {
+  font-size: 24px;
+  color: $navy;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.submit-wrap {
+  margin-top: 24px;
+}
