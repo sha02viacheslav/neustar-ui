@@ -1,0 +1,17 @@
+@import '../../../../styles/colors', '../../../../styles/config';
+
+.page-title {
+  font-size: 24px;
+  color: $navy;
+  margin-bottom: 24px;
+  font-width: 700;
+  text-align: center;
+}
+
+.import-button-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 30vh;
+}

@@ -126,4 +126,7 @@ export interface NeustarTrackerMapping {
   notes: string;
   cancel_date: string;
   all_headers: string;
+
+  // Temp fields
+  index: number;
 }

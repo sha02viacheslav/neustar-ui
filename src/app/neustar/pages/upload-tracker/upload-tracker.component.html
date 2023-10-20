@@ -1,0 +1,23 @@
+<div class="page-wrap">
+  <div class="page-title">Upload Tracker</div>
+
+  <div *ngIf="!allMappingMatched">
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>Tracker Mapping</mat-label>
+      <mat-select [(ngModel)]="trackerMappingIndex">
+        <mat-option *ngFor="let item of trackerMappings" [value]="item.index">
+          {{ item.carrier }}:{{ item.tracker }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="import-button-wrap">
+    <button *ngIf="!allMappingMatched" mat-raised-button (click)="handleClickBrowseFile()">Browse Tracker File</button>
+    <button *ngIf="allMappingMatched" mat-raised-button color="primary" (click)="uploadTracker()">
+      Upload Tracker
+    </button>
+  </div>
+</div>
+
+<input #fileInput type="file" (change)="onFileChange($event)" accept=".xlsx" class="d-none" />

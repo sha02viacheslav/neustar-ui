@@ -5,6 +5,7 @@ import { BlockUIService } from 'ng-block-ui';
 import { ApiService } from '../../../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { convertExcelString } from '../../../@core/utils';
 
 @Component({
   selector: 'app-tracker-mapping',
@@ -194,7 +195,7 @@ export class TrackerMappingComponent implements OnInit {
         this.headers = [{ label: 'N/A', value: null }];
         for (const key in worksheet) {
           if (key.match(/^[A-Z]+1$/)) {
-            const headerStr = worksheet[key].v.toString().trim().replace('\n', '').replace(/\s+/g, ' ');
+            const headerStr = convertExcelString(worksheet[key].v);
             this.headers.push({ label: headerStr, value: headerStr });
           }
         }

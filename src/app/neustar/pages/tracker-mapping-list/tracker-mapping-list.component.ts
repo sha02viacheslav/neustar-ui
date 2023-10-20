@@ -43,7 +43,6 @@ export class TrackerMappingListComponent implements OnInit, AfterViewInit {
   }
 
   private getList() {
-    console.log('GET List');
     this.blockUIService.start('APP', `Loading...`);
     this.apiService
       .getTrackerMappings({

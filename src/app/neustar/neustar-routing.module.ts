@@ -8,6 +8,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FalloutComponent } from './fallout/fallout.component';
 import { TrackerMappingComponent } from './pages/tracker-mapping/tracker-mapping.component';
 import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracker-mapping-list.component';
+import { UploadTrackerComponent } from './pages/upload-tracker/upload-tracker.component';
 
 // TODO: update routes
 
@@ -45,6 +46,11 @@ const routes: Routes = [
       {
         path: 'tracker-mapping/:carrier/:tracker',
         component: TrackerMappingComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'upload-tracker',
+        component: UploadTrackerComponent,
         canActivate: [AuthGuard],
       },
       {
