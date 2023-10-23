@@ -31,6 +31,7 @@ import { DateRangeType } from '@enums';
   ],
 })
 export class FalloutComponent implements OnInit, AfterViewInit {
+  private readonly FALLOUT_RAW_WHERE = "bot_execution_status != 'Completed'";
   displayedColumns: string[] = [
     'end_time',
     'carrierid',
@@ -137,8 +138,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         sort: this.sort?.active || 'start_time',
         order: this.sort?.direction || 'desc',
         ...this.dateFilter,
-        // TODO: Update rawWhere
-        rawWhere: "bot_execution_status LIKE '%Fallout%'",
+        rawWhere: this.FALLOUT_RAW_WHERE,
       })
       .pipe(
         tap((res) => {
@@ -206,8 +206,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         sort: this.sort?.active || 'start_time',
         order: this.sort?.direction || 'desc',
         ...this.dateFilter,
-        // TODO: Update rawWhere
-        rawWhere: "bot_execution_status LIKE '%Fallout%'",
+        rawWhere: this.FALLOUT_RAW_WHERE,
       })
       .pipe(
         tap((res) => {
@@ -252,6 +251,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         catchError((err) => {
           this.blockUIService.stop('APP');
           this.snackBar.open(err.message || '', 'Dismiss', { duration: 4000 });
+          console.log(err);
           throw 'Error Details: ' + err;
         }),
       )

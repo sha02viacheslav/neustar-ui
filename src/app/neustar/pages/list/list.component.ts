@@ -101,7 +101,7 @@ export class ListComponent {
         search: this.search || '',
         pageIndex: this.paginator?.pageIndex || 1,
         pageSize: this.paginator?.pageSize || 10,
-        sort: this.sort?.active || 'enddate',
+        sort: this.sort?.active || 'end_time',
         order: this.sort?.direction || 'desc',
         ...this.dateFilter,
         // rawWhere: getSummaryQuery(this.summaryType),
@@ -128,7 +128,7 @@ export class ListComponent {
     this.apiService
       .getList({
         search: this.search || '',
-        sort: this.sort?.active || 'enddate',
+        sort: this.sort?.active || 'end_time',
         order: this.sort?.direction || 'desc',
         ...this.dateFilter,
         // rawWhere: getSummaryQuery(this.summaryType),

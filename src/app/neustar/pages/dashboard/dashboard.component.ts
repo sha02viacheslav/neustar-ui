@@ -7,11 +7,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  // TODO: update tabs
-  tabs = [
-    { link: '/summary', label: 'Summary' },
-    { link: '/fallout', label: 'Fallout' },
-  ];
+  tabs = [{ link: '/fallout', label: 'Fallout' }];
   activeLink: string;
 
   constructor(private location: Location) {
