@@ -96,12 +96,9 @@ export class UploadTrackerComponent implements OnInit {
         event.target.value = '';
 
         const trackerMapping = this.trackerMappings[this.trackerMappingIndex];
+        const mappingAllHeaders = JSON.parse(trackerMapping.all_headers);
 
-        if (
-          this.headers.every(
-            (header) => Object.keys(trackerMapping).findIndex((key) => trackerMapping[key] === header.value) > -1,
-          )
-        ) {
+        if (mappingAllHeaders.every((header) => this.headers.includes(header))) {
           this.allMappingMatched = true;
         } else {
           this.toastr.info(
