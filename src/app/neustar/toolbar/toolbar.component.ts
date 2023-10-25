@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SearchService } from '../../@core/services';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,5 +6,5 @@ import { SearchService } from '../../@core/services';
   styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-  constructor(public searchService: SearchService) {}
+  constructor() {}
 }

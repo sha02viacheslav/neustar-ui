@@ -201,9 +201,16 @@ export class TrackerMappingComponent implements OnInit {
         }
 
         event.target.value = '';
+
+        setTimeout(() => {
+          this.blockUIService.stop('APP');
+        }, 2000);
       };
 
-      reader.readAsArrayBuffer(file);
+      this.blockUIService.start('APP', `Parsing...`);
+      setTimeout(() => {
+        reader.readAsArrayBuffer(file);
+      }, 300);
     }
   }
 
@@ -221,6 +228,12 @@ export class TrackerMappingComponent implements OnInit {
   submit() {
     if (this.trackerForm.invalid) {
       this.trackerForm.markAllAsTouched();
+      this.toastrService.error('Please fill out all required fields');
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      });
       return;
     }
 

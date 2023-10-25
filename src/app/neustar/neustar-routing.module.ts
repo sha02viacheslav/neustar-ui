@@ -27,16 +27,16 @@ const routes: Routes = [
             component: FalloutComponent,
           },
           {
+            path: 'tracker-mapping-list',
+            component: TrackerMappingListComponent,
+            canActivate: [AuthGuard],
+          },
+          {
             path: '',
             redirectTo: '/fallout',
             pathMatch: 'full',
           },
         ],
-      },
-      {
-        path: 'tracker-mapping-list',
-        component: TrackerMappingListComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'tracker-mapping',

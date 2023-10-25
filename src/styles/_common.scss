@@ -3,6 +3,23 @@
   position: relative;
 }
 
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 400;
+  color: $navy;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  color: $lilac;
+  margin-top: 4px;
+}
+
 .status-badge {
   position: relative;
 

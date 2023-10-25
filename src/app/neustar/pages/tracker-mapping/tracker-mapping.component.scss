@@ -1,13 +1,5 @@
 @import '../../../../styles/colors', '../../../../styles/config';
 
-.import-button-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding-top: 30vh;
-}
-
 .success-wrap {
   display: flex;
   flex-direction: column;
@@ -34,13 +26,10 @@
   margin-top: 24px;
 }
 
-.tracker-title {
-  font-size: 24px;
-  color: $navy;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
 .submit-wrap {
   margin-top: 24px;
+}
+
+.form-field-wrap {
+  margin-bottom: 16px;
 }

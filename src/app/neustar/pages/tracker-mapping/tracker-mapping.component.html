@@ -4,9 +4,12 @@
   <ng-container *ngIf="!succeeded">
     <ng-container *ngIf="headers?.length; else importButton">
       <form [formGroup]="trackerForm" class="form-wrap">
-        <div class="tracker-title">Map Fields</div>
-        <div fxLayout="row wrap" fxLayoutAlign="space-between start">
-          <div *ngFor="let field of fields" fxFlex="49%">
+        <div class="page-header">
+          <div class="page-title">Map Fields</div>
+          <div class="page-subtitle">Fields with an asterisk (*) are required</div>
+        </div>
+        <div fxLayout="row wrap mt-4" fxLayoutAlign="space-between start">
+          <div *ngFor="let field of fields" fxFlex="49%" class="form-field-wrap">
             <mat-form-field fxFlex appearance="outline" color="primary">
               <mat-label>{{ field.label }}</mat-label>
 
@@ -16,6 +19,8 @@
                   {{ item.label }}
                 </mat-option>
               </mat-select>
+
+              <mat-error *ngIf="trackerForm.get(field.key).getError('required')">Required</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -29,7 +34,7 @@
     </ng-container>
 
     <ng-template #importButton>
-      <div *ngIf="!isEdit" class="import-button-wrap">
+      <div *ngIf="!isEdit">
         <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Tracker</button>
       </div>
     </ng-template>

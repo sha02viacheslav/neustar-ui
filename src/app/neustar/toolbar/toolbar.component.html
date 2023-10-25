@@ -1,20 +1,6 @@
 <mat-toolbar color="primary">
-  <span routerLink="/">Neustar Order Insights Dashboard</span>
+  <span routerLink="/" class="pointer">Neustar Order Insights Dashboard</span>
   <span class="spacer"></span>
-
-  <div fxFlex class="search-box-wrap">
-    <!-- TODO: replace placeholder text -->
-    <input
-      type="text"
-      placeholder="Search"
-      [(ngModel)]="searchService.search"
-      (ngModelChange)="searchService.searchInput$.next(searchService.search)"
-    />
-    <button mat-icon-button (click)="searchService.clearSearch()">
-      <mat-icon *ngIf="!searchService.search">search</mat-icon>
-      <mat-icon *ngIf="!!searchService.search">close</mat-icon>
-    </button>
-  </div>
 
   <mat-menu #menu="matMenu">
     <button routerLink="/tracker-mapping" mat-menu-item>Add new tracker mapping</button>
