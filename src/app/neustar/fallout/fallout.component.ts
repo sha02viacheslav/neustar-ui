@@ -67,6 +67,9 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   };
   total: number;
   search = '';
+  totalAttempted: number;
+  totalSuccessful: number;
+  totalFailed: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -95,13 +98,31 @@ export class FalloutComponent implements OnInit, AfterViewInit {
 
   private async loadData() {
     this.blockUIService.start('APP', `Loading...`);
-    const promises = []; // TODO: add all promises
+    const promises = [];
+    promises.push(
+      new Promise((resolve) => {
+        this.apiService.getCount({ rawWhere: '', ...this.dateFilter }).subscribe((res) => {
+          this.totalAttempted = Number(res.result);
+          resolve(res.result);
+        });
+      }),
+    );
     promises.push(
       new Promise((resolve) => {
         this.apiService
-          .getCount({ rawWhere: '', ...this.dateFilter }) // TODO: update rawWhere
+          .getCount({ rawWhere: "bot_execution_status = 'Completed'", ...this.dateFilter })
           .subscribe((res) => {
-            this.total = Number(res.result); // TODO: Update total type
+            this.totalSuccessful = Number(res.result);
+            resolve(res.result);
+          });
+      }),
+    );
+    promises.push(
+      new Promise((resolve) => {
+        this.apiService
+          .getCount({ rawWhere: "bot_execution_status != 'Completed'", ...this.dateFilter })
+          .subscribe((res) => {
+            this.totalFailed = Number(res.result);
             resolve(res.result);
           });
       }),
@@ -114,14 +135,13 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   }
 
   private loadChart(): void {
-    // TODO: Update chartData
     this.chartData = {
-      labels: ['Total', 'Total2'],
+      labels: ['Successful', 'Failed'],
       datasets: [
         {
           label: 'Total',
-          backgroundColor: ['#112F64', '#0D62FF', '#8BE1FA'],
-          data: [this.total, this.total],
+          backgroundColor: ['#0D62FF', '#8BE1FA'],
+          data: [this.totalAttempted, this.totalSuccessful, this.totalFailed],
         },
       ],
     };

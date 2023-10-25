@@ -16,10 +16,17 @@
         <app-chart [type]="chartType" [data]="chartData" [options]="chartOptions"></app-chart>
       </div>
     </div>
-    <!-- TODO: Update success rate -->
-    <!-- <div class="summary">
-      Success Rate: <span>{{ (totalSuccessful * 100) / (totalAttempted || 1) | number : '1.1-1' }}%</span>
-    </div> -->
+    <div>
+      <div class="summary">
+        Success: <span>{{ totalSuccessful }}</span>
+      </div>
+      <div class="summary">
+        Failure: <span>{{ totalFailed }}</span>
+      </div>
+      <div class="summary">
+        Success Rate: <span>{{ (totalSuccessful * 100) / (totalAttempted || 1) | number: '1.1-1' }}%</span>
+      </div>
+    </div>
   </div>
 
   <div class="table-container">
