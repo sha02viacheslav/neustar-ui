@@ -20,6 +20,7 @@
 @include mat.snack-bar-theme($dashboard-theme);
 @include mat.datepicker-theme($dashboard-theme);
 @include mat.button-theme($dashboard-theme);
+@include mat.icon-button-theme($dashboard-theme);
 @include mat.icon-theme($dashboard-theme);
 @include mat.menu-theme($dashboard-theme);
 

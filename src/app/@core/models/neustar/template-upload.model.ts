@@ -1,3 +1,5 @@
+import { NeustarFalloutRetry } from '@models';
+
 export interface NeustarTemplateUpload {
   rowid: number;
   carrierid: string;
@@ -16,4 +18,5 @@ export interface NeustarTemplateUpload {
   end_time: string;
   execution_time: string;
   invalid_pon_count: string;
+  falloutRetrys: NeustarFalloutRetry[];
 }

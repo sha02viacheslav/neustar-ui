@@ -194,6 +194,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   retryFallout(id: number) {
     this.blockUIService.start('APP', `Retrying Fallout...`);
     this.apiService.retryFallout(id).subscribe(() => {
+      this.getList();
       this.blockUIService.stop('APP');
     });
   }
