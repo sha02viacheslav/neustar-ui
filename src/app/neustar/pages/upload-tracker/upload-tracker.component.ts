@@ -20,7 +20,6 @@ export class UploadTrackerComponent implements OnInit {
   trackerMappingIndex: number;
   trackerFile: File;
   headers: { label: string; value: string }[];
-  allMappingMatched = false;
   @ViewChild('fileInput') fileInput: ElementRef;
 
   constructor(
@@ -98,15 +97,20 @@ export class UploadTrackerComponent implements OnInit {
         const trackerMapping = this.trackerMappings[this.trackerMappingIndex];
         const mappingAllHeaders = JSON.parse(trackerMapping.all_headers);
 
-        if (mappingAllHeaders.every((header) => this.headers.includes(header))) {
-          this.allMappingMatched = true;
+        this.blockUIService.stop('APP');
+
+        if (
+          mappingAllHeaders.every(
+            (header) => !header.value || this.headers.findIndex((x) => x.value === header.value) > -1,
+          )
+        ) {
+          this.uploadTracker();
         } else {
           this.toastr.info(
             'All field names are not matched in the mapping record. Please add tracker mapping with these field names.',
           );
           this.router.navigateByUrl('/tracker-mapping');
         }
-        this.blockUIService.stop('APP');
       };
 
       reader.readAsArrayBuffer(file);
@@ -132,6 +136,9 @@ export class UploadTrackerComponent implements OnInit {
             this.snackBar.open(res.message?.[0] || '', 'Dismiss', { duration: 4000 });
             return;
           }
+
+          this.toastr.success('Tracker has been uploaded successfully.');
+
           if (res.result) {
             console.log(res.result);
           }
