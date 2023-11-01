@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dashboard-template-ui": {
+    "neustar-order-insights-ui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "dashboard-template-ui:build:production"
+              "browserTarget": "neustar-order-insights-ui:build:production"
             },
             "development": {
-              "browserTarget": "dashboard-template-ui:build:development"
+              "browserTarget": "neustar-order-insights-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dashboard-template-ui:build"
+            "browserTarget": "neustar-order-insights-ui:build"
           }
         },
         "test": {

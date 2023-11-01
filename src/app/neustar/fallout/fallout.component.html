@@ -1,4 +1,23 @@
 <div class="page-wrap">
+  <div class="summary-wrap">
+    <div class="chart-container">
+      <div class="chart">
+        <app-chart [type]="chartType" [data]="chartData" [options]="chartOptions"></app-chart>
+      </div>
+    </div>
+    <div>
+      <div class="summary">
+        Successes: <span>{{ totalSuccessful }}</span>
+      </div>
+      <div class="summary">
+        Failures: <span>{{ totalFailed }}</span>
+      </div>
+      <div class="summary">
+        Success Rate: <span>{{ (totalSuccessful * 100) / (totalAttempted || 1) | number: '1.1-1' }}%</span>
+      </div>
+    </div>
+  </div>
+
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16">
     <mat-button-toggle-group [(ngModel)]="dateRange" (change)="handleChangeDateRange()" appearance="legacy">
       <mat-button-toggle *ngFor="let option of dateRangeOptions" [value]="option.value">
@@ -8,25 +27,6 @@
     <app-date-filter #dateFilter (onChange)="handleChangeDateFilter($event)"></app-date-filter>
     <app-search (onChange)="handleChangeSearch($event)"></app-search>
     <button mat-raised-button (click)="exportXls()">Export</button>
-  </div>
-
-  <div class="summary-wrap">
-    <div class="chart-container">
-      <div class="chart">
-        <app-chart [type]="chartType" [data]="chartData" [options]="chartOptions"></app-chart>
-      </div>
-    </div>
-    <div>
-      <div class="summary">
-        Success: <span>{{ totalSuccessful }}</span>
-      </div>
-      <div class="summary">
-        Failure: <span>{{ totalFailed }}</span>
-      </div>
-      <div class="summary">
-        Success Rate: <span>{{ (totalSuccessful * 100) / (totalAttempted || 1) | number: '1.1-1' }}%</span>
-      </div>
-    </div>
   </div>
 
   <div class="table-container">

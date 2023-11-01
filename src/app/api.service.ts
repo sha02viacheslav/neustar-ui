@@ -4,13 +4,11 @@ import { Observable } from 'rxjs';
 import { ApiResponse, Filter, NeustarTemplateUpload, NeustarTrackerMapping, Pagination } from '@models';
 import { environment } from 'src/environments/environment';
 
-// TODO: replace prodUrl
-
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  prodUrl = '';
+  prodUrl = 'http://neustar-order-insights-api.as-g8.cf.comcast.net/';
   apiUrl = environment.production ? this.prodUrl : 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}

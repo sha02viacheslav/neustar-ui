@@ -10,6 +10,5 @@ export class BreakdownTableComponent {
   @Input() dateHeader: string;
   @Input() dateFormat: string;
   @Input() data: any[] = [];
-  // TODO: add columns to display
   displayedColumns: string[] = [''];
 }

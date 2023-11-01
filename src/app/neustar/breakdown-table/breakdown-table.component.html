@@ -10,7 +10,6 @@
 </mat-grid-list>
 
 <table mat-table [dataSource]="data">
-  <!-- TODO: add columns -->
   <ng-container matColumnDef="">
     <th mat-header-cell *matHeaderCellDef width="10%">Column Name</th>
     <td mat-cell *matCellDef="let element">{{ element.date | date: dateFormat }}</td>
