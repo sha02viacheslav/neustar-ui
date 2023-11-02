@@ -15,7 +15,7 @@ import { catchError, debounceTime, merge, tap } from 'rxjs';
   styleUrls: ['./tracker-mapping-list.component.scss'],
 })
 export class TrackerMappingListComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['carrier', 'tracker'];
+  displayedColumns: string[] = ['carrier', 'tracker', 'delete'];
   dataSource: MatTableDataSource<NeustarTrackerMapping>;
   totalCount: number;
 
@@ -68,5 +68,13 @@ export class TrackerMappingListComponent implements OnInit, AfterViewInit {
         }),
       )
       .subscribe(console.log);
+  }
+
+  deleteTrackerMapping(trackerMapping: NeustarTrackerMapping) {
+    this.blockUIService.start('APP', `Deleting Tracker Mapping...`);
+    this.apiService.deleteTrackerMapping(trackerMapping.carrier, trackerMapping.tracker).subscribe(() => {
+      this.getList();
+      this.blockUIService.stop('APP');
+    });
   }
 }

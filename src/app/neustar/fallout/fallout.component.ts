@@ -141,7 +141,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         {
           label: 'Total',
           backgroundColor: ['#0D62FF', '#8BE1FA'],
-          data: [this.totalAttempted, this.totalSuccessful, this.totalFailed],
+          data: [this.totalSuccessful, this.totalFailed],
         },
       ],
     };

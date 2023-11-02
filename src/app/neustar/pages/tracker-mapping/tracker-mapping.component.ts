@@ -130,7 +130,7 @@ export class TrackerMappingComponent implements OnInit {
     { label: 'Order Received ACD', key: 'order_received_acd' },
     { label: 'ASR Complete ACD', key: 'asr_complete_acd' },
     { label: 'Application Date ACD', key: 'application_date_acd' },
-    { label: 'Application Date ACD', key: 'design_verification_assignment_acd' },
+    { label: 'Design Verification Assignment ACD', key: 'design_verification_assignment_acd' },
     { label: 'DLR Distribution ACD', key: 'dlr_distribution_acd' },
     { label: 'FOC Issued ACD', key: 'foc_issued_acd' },
     { label: 'FOC Issued ECD', key: 'foc_issued_ecd' },
@@ -167,6 +167,10 @@ export class TrackerMappingComponent implements OnInit {
         this.carrier = params.get('carrier');
         this.tracker = params.get('tracker');
         this.getTrackerMapping();
+        if (this.isEdit) {
+          this.trackerForm.get('carrier').disable();
+          this.trackerForm.get('tracker').disable();
+        }
       }
     });
   }

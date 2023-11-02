@@ -72,6 +72,12 @@ export class ApiService {
     );
   }
 
+  deleteTrackerMapping(carrier: string, tracker: string): Observable<ApiResponse<NeustarTemplateUpload>> {
+    return this.http.delete<ApiResponse<any>>(this.apiUrl + `/tracker-mapping/${carrier}/${tracker}`, {
+      withCredentials: true,
+    });
+  }
+
   uploadTracker(carrier: string, tracker: string, data: FormData): Observable<ApiResponse<any>> {
     return this.http.post<ApiResponse<any>>(this.apiUrl + `/tracker-upload/${carrier}/${tracker}`, data, {
       withCredentials: true,
