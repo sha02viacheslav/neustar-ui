@@ -104,11 +104,8 @@ export class UploadTrackerComponent implements OnInit {
         const worksheet = workbook.Sheets[sheetName];
 
         this.headers = [];
-        // Extract the row index from the "header_row" field with the format "Row 1:..."
-        const rowIndex = +trackerMapping.header_row?.split(':')?.[0]?.split(' ')?.[1] || 1;
-        console.log(rowIndex);
         for (const key in worksheet) {
-          if (key.match(new RegExp('^[A-Z]+' + rowIndex + '$'))) {
+          if (key.match(new RegExp('^[A-Z]+' + (trackerMapping.header_row || 1) + '$'))) {
             const headerStr = convertExcelString(worksheet[key].v);
             this.headers.push({ label: headerStr, value: headerStr });
           }

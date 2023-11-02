@@ -145,7 +145,6 @@ export class TrackerMappingComponent implements OnInit {
   ];
   sheetNames: string[];
   worksheets: { [key: string]: XLSX.WorkSheet };
-  allHeaders: { label: string; headers: { label: string; value: string }[] }[];
   headers: { label: string; value: string }[];
   trackerForm: FormGroup;
   carrier: string;
@@ -187,7 +186,10 @@ export class TrackerMappingComponent implements OnInit {
     this.fields.forEach((field) => {
       this.trackerForm.addControl(
         field.key,
-        this.fb.control(field.value || null, field.required ? [Validators.required] : []),
+        this.fb.control(field.value || null, [
+          ...(field.required ? [Validators.required] : []),
+          ...(field.key === 'header_row' ? [Validators.pattern(/^-?\d+$/)] : []),
+        ]),
       );
     });
   }
@@ -219,38 +221,33 @@ export class TrackerMappingComponent implements OnInit {
 
   handleChangeSheet() {
     this.headers = null;
-    this.trackerForm.get('header_row').reset();
-    this.resetGeneralColumns();
-    const worksheet = this.worksheets[this.trackerForm.value.sheet];
+    this.handleChangeHeaderRow();
+  }
 
-    this.allHeaders = [];
-    for (let index = 1; index < 10; index++) {
-      const headers = [{ label: 'N/A', value: null }];
-      for (const key in worksheet) {
-        if (key.match(new RegExp('^[A-Z]+' + index + '$'))) {
+  handleChangeHeaderRow() {
+    setTimeout(() => {
+      this.resetGeneralColumns();
+      if (!this.trackerForm.value.sheet || !this.trackerForm.value.header_row) {
+        this.headers = null;
+        return;
+      }
+
+      if (this.trackerForm.get('header_row').invalid) {
+        return;
+      }
+
+      this.headers = [{ label: 'N/A', value: null }];
+      const worksheet = this.worksheets[this.trackerForm.value.sheet];
+      for (const key in this.worksheets[this.trackerForm.value.sheet]) {
+        if (key.match(new RegExp('^[A-Z]+' + this.trackerForm.value.header_row + '$'))) {
           const headerStr = convertExcelString(worksheet[key].v);
 
           if (headerStr) {
-            headers.push({ label: headerStr, value: headerStr });
+            this.headers.push({ label: headerStr, value: headerStr });
           }
         }
       }
-
-      if (headers.length > 1) {
-        this.allHeaders.push({
-          label: `Row ${index}: ${headers
-            .slice(1, 5)
-            .reduce((car, val) => (car = car.concat(val.label)), [])
-            .join(', ')}`,
-          headers,
-        });
-      }
-    }
-  }
-
-  handleChangeHeaders() {
-    this.resetGeneralColumns();
-    this.headers = this.allHeaders.find((item) => item.label === this.trackerForm.value.header_row)?.headers;
+    });
   }
 
   resetGeneralColumns() {
@@ -266,7 +263,6 @@ export class TrackerMappingComponent implements OnInit {
         this.headers = JSON.parse(res.result.all_headers);
         this.trackerForm.patchValue(res.result);
         this.sheetNames = [res.result.sheet];
-        this.allHeaders = [{ label: res.result.header_row, headers: this.headers }];
       }
       this.blockUIService.stop('APP');
     });

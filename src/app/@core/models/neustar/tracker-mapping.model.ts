@@ -2,7 +2,7 @@ export interface NeustarTrackerMapping {
   carrier: string;
   tracker: string;
   sheet: string;
-  header_row: string;
+  header_row: number;
   payload_type: string;
   ap_region: string;
   pon: string;

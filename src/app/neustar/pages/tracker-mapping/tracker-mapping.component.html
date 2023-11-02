@@ -27,15 +27,7 @@
                   </mat-select>
                 </ng-container>
                 <ng-container *ngSwitchCase="'header_row'">
-                  <mat-select
-                    *ngIf="!field.isInput"
-                    [formControlName]="field.key"
-                    (selectionChange)="handleChangeHeaders()"
-                  >
-                    <mat-option *ngFor="let item of allHeaders" [value]="item.label">
-                      {{ item.label }}
-                    </mat-option>
-                  </mat-select>
+                  <input type="number" [formControlName]="field.key" (change)="handleChangeHeaderRow()" matInput />
                 </ng-container>
                 <ng-container *ngSwitchDefault>
                   <mat-select *ngIf="!field.isInput" [formControlName]="field.key">
@@ -47,6 +39,7 @@
               </ng-container>
 
               <mat-error *ngIf="trackerForm.get(field.key).getError('required')">Required</mat-error>
+              <mat-error *ngIf="trackerForm.get(field.key).getError('pattern')">Invalid format</mat-error>
             </mat-form-field>
           </div>
         </div>
