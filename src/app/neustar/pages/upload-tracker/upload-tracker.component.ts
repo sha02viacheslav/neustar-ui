@@ -76,17 +76,39 @@ export class UploadTrackerComponent implements OnInit {
 
     if (file) {
       this.trackerFile = file;
-      this.blockUIService.start('APP', `Parsing...`);
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const data = e.target.result;
         const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
+        event.target.value = '';
+
+        const trackerMapping = this.trackerMappings[this.trackerMappingIndex];
+        const sheetName = trackerMapping.sheet;
+
+        if (!sheetName) {
+          this.toastr.error(`The tracker mapping does not include a selected sheet.`);
+          return;
+        }
+
+        setTimeout(() => {
+          this.blockUIService.stop('APP');
+        }, 2000);
+
+        if (!workbook.SheetNames.includes(sheetName)) {
+          this.toastr.error(
+            `The uploaded tracker file does not include the sheet(${sheetName}) that was chosen in the tracker mapping.`,
+          );
+          return;
+        }
+
         const worksheet = workbook.Sheets[sheetName];
 
         this.headers = [];
+        // Extract the row index from the "header_row" field with the format "Row 1:..."
+        const rowIndex = +trackerMapping.header_row?.split(':')?.[0]?.split(' ')?.[1] || 1;
+        console.log(rowIndex);
         for (const key in worksheet) {
-          if (key.match(/^[A-Z]+1$/)) {
+          if (key.match(new RegExp('^[A-Z]+' + rowIndex + '$'))) {
             const headerStr = convertExcelString(worksheet[key].v);
             this.headers.push({ label: headerStr, value: headerStr });
           }
@@ -94,7 +116,6 @@ export class UploadTrackerComponent implements OnInit {
 
         event.target.value = '';
 
-        const trackerMapping = this.trackerMappings[this.trackerMappingIndex];
         const mappingAllHeaders = JSON.parse(trackerMapping.all_headers);
 
         this.blockUIService.stop('APP');
@@ -113,7 +134,10 @@ export class UploadTrackerComponent implements OnInit {
         }
       };
 
-      reader.readAsArrayBuffer(file);
+      this.blockUIService.start('APP', `Parsing...`);
+      setTimeout(() => {
+        reader.readAsArrayBuffer(file);
+      }, 300);
     }
   }
 
