@@ -2,7 +2,7 @@
   <app-back-link *ngIf="isEdit" defaultBackTo="/" style="justify-content: left"></app-back-link>
 
   <ng-container *ngIf="!succeeded">
-    <ng-container *ngIf="headers?.length; else importButton">
+    <ng-container *ngIf="sheetNames?.length; else importButton">
       <form [formGroup]="trackerForm" class="form-wrap">
         <div class="page-header">
           <div class="page-title">Map Fields</div>
@@ -14,11 +14,37 @@
               <mat-label>{{ field.label }}</mat-label>
 
               <input *ngIf="field.isInput" type="text" [formControlName]="field.key" matInput />
-              <mat-select *ngIf="!field.isInput" [formControlName]="field.key">
-                <mat-option *ngFor="let item of headers" [value]="item.value">
-                  {{ item.label }}
-                </mat-option>
-              </mat-select>
+              <ng-container [ngSwitch]="field.key">
+                <ng-container *ngSwitchCase="'sheet'">
+                  <mat-select
+                    *ngIf="!field.isInput"
+                    [formControlName]="field.key"
+                    (selectionChange)="handleChangeSheet()"
+                  >
+                    <mat-option *ngFor="let item of sheetNames" [value]="item">
+                      {{ item }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+                <ng-container *ngSwitchCase="'header_row'">
+                  <mat-select
+                    *ngIf="!field.isInput"
+                    [formControlName]="field.key"
+                    (selectionChange)="handleChangeHeaders()"
+                  >
+                    <mat-option *ngFor="let item of allHeaders" [value]="item.label">
+                      {{ item.label }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                  <mat-select *ngIf="!field.isInput" [formControlName]="field.key">
+                    <mat-option *ngFor="let item of headers" [value]="item.value">
+                      {{ item.label }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+              </ng-container>
 
               <mat-error *ngIf="trackerForm.get(field.key).getError('required')">Required</mat-error>
             </mat-form-field>

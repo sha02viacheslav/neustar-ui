@@ -16,6 +16,8 @@ export class TrackerMappingComponent implements OnInit {
   fields: { label: string; key: string; value?: string; required?: boolean; isInput?: boolean }[] = [
     { label: 'Carrier', key: 'carrier', required: true, isInput: true },
     { label: 'Tracker', key: 'tracker', required: true, isInput: true },
+    { label: 'Sheet', key: 'sheet', required: true },
+    { label: 'Header Row', key: 'header_row', required: true },
     { label: 'Payload Type', key: 'payload_type' },
     { label: 'AP Region', key: 'ap_region' },
     { label: 'PON', key: 'pon', required: true },
@@ -141,6 +143,9 @@ export class TrackerMappingComponent implements OnInit {
     { label: 'Notes', key: 'notes' },
     { label: 'Cancel Date', key: 'cancel_date' },
   ];
+  sheetNames: string[];
+  worksheets: { [key: string]: XLSX.WorkSheet };
+  allHeaders: { label: string; headers: { label: string; value: string }[] }[];
   headers: { label: string; value: string }[];
   trackerForm: FormGroup;
   carrier: string;
@@ -170,6 +175,8 @@ export class TrackerMappingComponent implements OnInit {
         if (this.isEdit) {
           this.trackerForm.get('carrier').disable();
           this.trackerForm.get('tracker').disable();
+          this.trackerForm.get('sheet').disable();
+          this.trackerForm.get('header_row').disable();
         }
       }
     });
@@ -193,16 +200,8 @@ export class TrackerMappingComponent implements OnInit {
       reader.onload = (e: any) => {
         const data = e.target.result;
         const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
-
-        this.headers = [{ label: 'N/A', value: null }];
-        for (const key in worksheet) {
-          if (key.match(/^[A-Z]+1$/)) {
-            const headerStr = convertExcelString(worksheet[key].v);
-            this.headers.push({ label: headerStr, value: headerStr });
-          }
-        }
+        this.sheetNames = workbook.SheetNames;
+        this.worksheets = workbook.Sheets;
 
         event.target.value = '';
 
@@ -218,12 +217,56 @@ export class TrackerMappingComponent implements OnInit {
     }
   }
 
+  handleChangeSheet() {
+    this.headers = null;
+    this.trackerForm.get('header_row').reset();
+    this.resetGeneralColumns();
+    const worksheet = this.worksheets[this.trackerForm.value.sheet];
+
+    this.allHeaders = [];
+    for (let index = 1; index < 10; index++) {
+      const headers = [{ label: 'N/A', value: null }];
+      for (const key in worksheet) {
+        if (key.match(new RegExp('^[A-Z]+' + index + '$'))) {
+          const headerStr = convertExcelString(worksheet[key].v);
+
+          if (headerStr) {
+            headers.push({ label: headerStr, value: headerStr });
+          }
+        }
+      }
+
+      if (headers.length > 1) {
+        this.allHeaders.push({
+          label: `Row ${index}: ${headers
+            .slice(1, 5)
+            .reduce((car, val) => (car = car.concat(val.label)), [])
+            .join(', ')}`,
+          headers,
+        });
+      }
+    }
+  }
+
+  handleChangeHeaders() {
+    this.resetGeneralColumns();
+    this.headers = this.allHeaders.find((item) => item.label === this.trackerForm.value.header_row)?.headers;
+  }
+
+  resetGeneralColumns() {
+    this.fields.slice(4).forEach((field) => {
+      this.trackerForm.get(field.key).reset();
+    });
+  }
+
   getTrackerMapping() {
     this.blockUIService.start('APP', `Loading...`);
     this.apiService.getTrackerMapping(this.carrier, this.tracker).subscribe((res) => {
       if (res.success) {
         this.headers = JSON.parse(res.result.all_headers);
         this.trackerForm.patchValue(res.result);
+        this.sheetNames = [res.result.sheet];
+        this.allHeaders = [{ label: res.result.header_row, headers: this.headers }];
       }
       this.blockUIService.stop('APP');
     });
@@ -245,13 +288,7 @@ export class TrackerMappingComponent implements OnInit {
 
     const postData = this.trackerForm.value;
 
-    const primaryKeysEdited = this.isEdit && (this.carrier !== postData.carrier || this.tracker !== postData.tracker);
-
-    if (primaryKeysEdited) {
-      this.toastrService.info('You edited carrier or tracker. So new tracker mapping will be added.');
-    }
-
-    if (this.isEdit && !primaryKeysEdited) {
+    if (this.isEdit) {
       this.apiService.updateTrackerMapping(this.carrier, this.tracker, postData).subscribe((res) => {
         this.blockUIService.stop('APP');
         if (!res.success) {
