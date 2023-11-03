@@ -77,10 +77,4 @@ export class ApiService {
       withCredentials: true,
     });
   }
-
-  uploadTracker(carrier: string, tracker: string, data: FormData): Observable<ApiResponse<any>> {
-    return this.http.post<ApiResponse<any>>(this.apiUrl + `/tracker-upload/${carrier}/${tracker}`, data, {
-      withCredentials: true,
-    });
-  }
 }
