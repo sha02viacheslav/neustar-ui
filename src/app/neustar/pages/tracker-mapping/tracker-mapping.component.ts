@@ -203,6 +203,9 @@ export class TrackerMappingComponent implements OnInit {
         const data = e.target.result;
         const workbook = XLSX.read(data, { type: 'array' });
         this.sheetNames = workbook.SheetNames;
+        this.trackerForm.get('sheet').setValue(this.sheetNames[0]);
+        this.trackerForm.get('header_row').setValue(1);
+        this.handleChangeSheet();
         this.worksheets = workbook.Sheets;
 
         event.target.value = '';
