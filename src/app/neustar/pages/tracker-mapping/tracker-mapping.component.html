@@ -13,7 +13,6 @@
             <mat-form-field fxFlex appearance="outline" color="primary">
               <mat-label>{{ field.label }}</mat-label>
 
-              <input *ngIf="field.isInput" type="text" [formControlName]="field.key" matInput />
               <ng-container [ngSwitch]="field.key">
                 <ng-container *ngSwitchCase="'sheet'">
                   <mat-select
@@ -26,15 +25,29 @@
                     </mat-option>
                   </mat-select>
                 </ng-container>
+
                 <ng-container *ngSwitchCase="'header_row'">
                   <input type="number" [formControlName]="field.key" (change)="handleChangeHeaderRow()" matInput />
                 </ng-container>
+
                 <ng-container *ngSwitchDefault>
-                  <mat-select *ngIf="!field.isInput" [formControlName]="field.key">
-                    <mat-option *ngFor="let item of headers" [value]="item.value">
-                      {{ item.label }}
-                    </mat-option>
-                  </mat-select>
+                  <input *ngIf="field.isInput" type="text" [formControlName]="field.key" matInput />
+                  <ng-container *ngIf="!field.isInput">
+                    <input
+                      #editableSelectInput
+                      matInput
+                      type="text"
+                      class="editable-select-input"
+                      [value]="trackerForm.value[field.key]"
+                      (input)="onEditableSelectInputChange($event, field.key)"
+                      (focus)="onFocusEditableSelect(editableSelect, editableSelectInput)"
+                    />
+                    <mat-select #editableSelect class="editable-select" [formControlName]="field.key">
+                      <mat-option *ngFor="let item of headers" [value]="item.value">
+                        {{ item.label }}
+                      </mat-option>
+                    </mat-select>
+                  </ng-container>
                 </ng-container>
               </ng-container>
 

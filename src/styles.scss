@@ -23,6 +23,7 @@
 @include mat.icon-button-theme($dashboard-theme);
 @include mat.icon-theme($dashboard-theme);
 @include mat.menu-theme($dashboard-theme);
+@include mat.autocomplete-theme($dashboard-theme);
 
 html,
 body {

@@ -6,6 +6,7 @@ import { ApiService } from '../../../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { convertExcelString } from '../../../@core/utils';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-tracker-mapping',
@@ -200,17 +201,16 @@ export class TrackerMappingComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const data = e.target.result;
-        const workbook = XLSX.read(data, { type: 'array' });
-        this.sheetNames = workbook.SheetNames;
-        this.trackerForm.get('sheet').setValue(this.sheetNames[0]);
-        this.trackerForm.get('header_row').setValue(1);
-        this.handleChangeSheet();
-        this.worksheets = workbook.Sheets;
+        const workbook = XLSX.read(e.target.result, { type: 'array' });
 
         event.target.value = '';
 
         setTimeout(() => {
+          this.sheetNames = workbook.SheetNames;
+          this.trackerForm.get('sheet').setValue(this.sheetNames[0]);
+          this.trackerForm.get('header_row').setValue(1);
+          this.worksheets = workbook.Sheets;
+          this.handleChangeSheet();
           this.blockUIService.stop('APP');
         }, 2000);
       };
@@ -314,5 +314,15 @@ export class TrackerMappingComponent implements OnInit {
     this.headers = [];
     this.succeeded = false;
     this.trackerForm.reset();
+  }
+
+  onEditableSelectInputChange(event: any, key: string) {
+    const value = event.target.value;
+    this.trackerForm.get(key).setValue(value);
+  }
+
+  onFocusEditableSelect(selectElement: MatSelect, inputElement: HTMLInputElement) {
+    selectElement.open();
+    inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length;
   }
 }
