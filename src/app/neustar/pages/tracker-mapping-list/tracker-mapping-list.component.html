@@ -9,9 +9,9 @@
     matSortDisableClear
     matSortDirection="desc"
   >
-    <ng-container matColumnDef="carrier">
+    <ng-container matColumnDef="carrier_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Carrier</th>
-      <td mat-cell *matCellDef="let element">{{ element.carrier }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.carrier_id }}</td>
     </ng-container>
     <ng-container matColumnDef="tracker">
       <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Tracker</th>
@@ -31,7 +31,7 @@
       mat-row
       class="pointer"
       *matRowDef="let element; columns: displayedColumns"
-      [routerLink]="['/tracker-mapping', element.carrier, element.tracker]"
+      [routerLink]="['/tracker-mapping', element.carrier_id, element.tracker]"
     ></tr>
   </table>
 
