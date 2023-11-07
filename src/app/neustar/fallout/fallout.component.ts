@@ -148,7 +148,6 @@ export class FalloutComponent implements OnInit, AfterViewInit {
   }
 
   private getList() {
-    console.log('GET List');
     this.blockUIService.start('APP', `Loading...`);
     this.apiService
       .getList({
@@ -272,7 +271,6 @@ export class FalloutComponent implements OnInit, AfterViewInit {
         catchError((err) => {
           this.blockUIService.stop('APP');
           this.snackBar.open(err.message || '', 'Dismiss', { duration: 4000 });
-          console.log(err);
           throw 'Error Details: ' + err;
         }),
       )

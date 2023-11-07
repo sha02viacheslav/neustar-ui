@@ -1,0 +1,44 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <h2 mat-dialog-title class="page-title mb-0">Additional mapping</h2>
+  <button mat-icon-button mat-dialog-close tabindex="-1"><mat-icon>close</mat-icon></button>
+</div>
+
+<mat-dialog-content fxLayout="column" class="pt-0">
+  <form class="main-block" [formGroup]="infoForm" (ngSubmit)="submitForm()" autocomplete="off" novalidate>
+    <div class="page-subtitle">
+      <strong>Note:</strong> Select a primary tracker field and a secondary tracker field to be mapped to &lt;INSERT
+      FIELD NAME BEING MAPPED&gt;. The secondary value will be used when there is no primary value.
+    </div>
+
+    <div class="mt-4">
+      <div *ngFor="let field of fields" class="mb-3">
+        <mat-form-field fxFlex appearance="outline" color="primary">
+          <mat-label>{{ field.label }}</mat-label>
+          <input
+            #editableSelectInput
+            matInput
+            type="text"
+            class="editable-select-input"
+            [value]="infoForm.value[field.key]"
+            (input)="onEditableSelectInputChange($event, field.key)"
+            (focus)="onFocusEditableSelect(editableSelect, editableSelectInput)"
+          />
+          <mat-select #editableSelect class="editable-select" [formControlName]="field.key" tabindex="-1">
+            <mat-option *ngFor="let item of data.headers" [value]="item.value">
+              {{ item.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row gx-3 gy-3 justify-content-end mt-4">
+      <div class="col-12 col-md-auto">
+        <button mat-raised-button class="w-100" mat-dialog-close tabindex="-1">Cancel</button>
+      </div>
+      <div class="col-12 col-md-auto">
+        <button mat-raised-button color="primary" class="w-100" type="submit">Save</button>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>

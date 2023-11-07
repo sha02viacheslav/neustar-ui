@@ -10,7 +10,7 @@
         </div>
         <div fxLayout="row wrap mt-4" fxLayoutAlign="space-between start">
           <div *ngFor="let field of fields" fxFlex="49%" class="form-field-wrap">
-            <mat-form-field fxFlex appearance="outline" color="primary">
+            <mat-form-field appearance="outline" color="primary">
               <mat-label>{{ field.label }}</mat-label>
 
               <ng-container [ngSwitch]="field.key">
@@ -42,7 +42,7 @@
                       (input)="onEditableSelectInputChange($event, field.key)"
                       (focus)="onFocusEditableSelect(editableSelect, editableSelectInput)"
                     />
-                    <mat-select #editableSelect class="editable-select" [formControlName]="field.key">
+                    <mat-select #editableSelect class="editable-select" [formControlName]="field.key" tabindex="-1">
                       <mat-option *ngFor="let item of headers" [value]="item.value">
                         {{ item.label }}
                       </mat-option>
@@ -54,6 +54,15 @@
               <mat-error *ngIf="trackerForm.get(field.key).getError('required')">Required</mat-error>
               <mat-error *ngIf="trackerForm.get(field.key).getError('pattern')">Invalid format</mat-error>
             </mat-form-field>
+
+            <button
+              *ngIf="!field.isInput && field.key !== 'sheet' && field.key !== 'header_row'"
+              class="add-button"
+              mat-icon-button
+              (click)="openMappingModal(field.key)"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
           </div>
         </div>
       </form>

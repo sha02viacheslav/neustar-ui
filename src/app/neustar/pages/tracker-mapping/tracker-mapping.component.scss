@@ -32,6 +32,13 @@
 
 .form-field-wrap {
   margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.add-button {
+  margin-top: 4px;
+  margin-left: 8px;
 }
 
 .editable-select-input {
@@ -39,11 +46,18 @@
   right: 0;
 }
 
-::ng-deep .editable-select {
-  .mat-mdc-select-trigger {
-    z-index: -1;
+::ng-deep {
+  .form-field-wrap .mat-mdc-form-field {
+    width: calc(100% - 56px);
   }
-  .mat-mdc-select-value {
-    visibility: hidden !important;
+
+  .editable-select {
+    .mat-mdc-select-trigger {
+      z-index: -1;
+    }
+
+    .mat-mdc-select-value {
+      visibility: hidden !important;
+    }
   }
 }

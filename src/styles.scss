@@ -24,6 +24,7 @@
 @include mat.icon-theme($dashboard-theme);
 @include mat.menu-theme($dashboard-theme);
 @include mat.autocomplete-theme($dashboard-theme);
+@include mat.dialog-theme($dashboard-theme);
 
 html,
 body {

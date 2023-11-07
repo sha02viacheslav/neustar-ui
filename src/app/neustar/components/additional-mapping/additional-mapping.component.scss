@@ -1,0 +1,16 @@
+.editable-select-input {
+  position: absolute;
+  right: 0;
+}
+
+::ng-deep {
+  .editable-select {
+    .mat-mdc-select-trigger {
+      z-index: -1;
+    }
+
+    .mat-mdc-select-value {
+      visibility: hidden !important;
+    }
+  }
+}

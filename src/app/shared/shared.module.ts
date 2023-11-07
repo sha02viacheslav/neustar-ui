@@ -11,8 +11,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SearchComponent } from './components/search/search.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
-const MAT_MODULES = [MatFormFieldModule, MatIconModule, MatInputModule, MatButtonToggleModule, MatButtonModule];
+const MAT_MODULES = [
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatButtonToggleModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatSelectModule,
+];
 
 const COMPONENTS = [BackLinkComponent, SearchComponent];
 

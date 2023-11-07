@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { convertExcelString } from '../../../@core/utils';
 import { MatSelect } from '@angular/material/select';
+import { DialogService } from '../../../@core/services';
+import { AdditionalMappingComponent } from '../../components/additional-mapping/additional-mapping.component';
 
 @Component({
   selector: 'app-tracker-mapping',
@@ -15,10 +17,12 @@ import { MatSelect } from '@angular/material/select';
 })
 export class TrackerMappingComponent implements OnInit {
   fields: { label: string; key: string; value?: string; required?: boolean; isInput?: boolean }[] = [
-    { label: 'Carrier', key: 'carrier', required: true, isInput: true },
+    { label: 'Carrier', key: 'carrier_id', required: true, isInput: true },
     { label: 'Tracker', key: 'tracker', required: true, isInput: true },
     { label: 'Sheet', key: 'sheet', required: true },
     { label: 'Header Row', key: 'header_row', required: true },
+    { label: 'Domain', key: 'domain', isInput: true },
+    { label: 'ACP Path Segment', key: 'acp_path_segment', isInput: true },
     { label: 'Payload Type', key: 'payload_type' },
     { label: 'AP Region', key: 'ap_region' },
     { label: 'PON', key: 'pon', required: true },
@@ -162,6 +166,7 @@ export class TrackerMappingComponent implements OnInit {
     private apiService: ApiService,
     private toastrService: ToastrService,
     private route: ActivatedRoute,
+    private dialogService: DialogService,
   ) {
     this.buildForm();
   }
@@ -173,7 +178,7 @@ export class TrackerMappingComponent implements OnInit {
         this.tracker = params.get('tracker');
         this.getTrackerMapping();
         if (this.isEdit) {
-          this.trackerForm.get('carrier').disable();
+          this.trackerForm.get('carrier_id').disable();
           this.trackerForm.get('tracker').disable();
           this.trackerForm.get('sheet').disable();
           this.trackerForm.get('header_row').disable();
@@ -324,5 +329,21 @@ export class TrackerMappingComponent implements OnInit {
   onFocusEditableSelect(selectElement: MatSelect, inputElement: HTMLInputElement) {
     selectElement.open();
     inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length;
+  }
+
+  openMappingModal(key: string) {
+    const formControl = this.trackerForm.get(key);
+    this.dialogService
+      .open(AdditionalMappingComponent, {
+        data: { headers: this.headers, value: formControl.value },
+        width: '560px',
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((result: string) => {
+        if (result) {
+          formControl.setValue(result);
+        }
+      });
   }
 }

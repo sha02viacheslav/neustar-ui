@@ -14,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
 
 import { NeustarRoutingModule } from './neustar-routing.module';
 import { NeustarComponent } from './neustar.component';
@@ -31,6 +30,7 @@ import { BreakdownTableComponent } from './breakdown-table/breakdown-table.compo
 import { MatMenuModule } from '@angular/material/menu';
 import { TrackerMappingComponent } from './pages/tracker-mapping/tracker-mapping.component';
 import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracker-mapping-list.component';
+import { AdditionalMappingComponent } from './components/additional-mapping/additional-mapping.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracke
     BreakdownTableComponent,
     TrackerMappingComponent,
     TrackerMappingListComponent,
+    AdditionalMappingComponent,
   ],
   imports: [
     CommonModule,
@@ -63,7 +64,6 @@ import { TrackerMappingListComponent } from './pages/tracker-mapping-list/tracke
     MatSnackBarModule,
     MatButtonModule,
     MatOptionModule,
-    MatSelectModule,
     MatMenuModule,
     DateFilterModule,
     SharedModule,
