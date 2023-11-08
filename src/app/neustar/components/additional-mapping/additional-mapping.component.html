@@ -19,11 +19,16 @@
             matInput
             type="text"
             class="editable-select-input"
-            [value]="infoForm.value[field.key]"
-            (input)="onEditableSelectInputChange($event, field.key)"
+            [formControlName]="field.key"
             (focus)="onFocusEditableSelect(editableSelect, editableSelectInput)"
           />
-          <mat-select #editableSelect class="editable-select" [formControlName]="field.key" tabindex="-1">
+          <mat-select
+            #editableSelect
+            class="editable-select"
+            [value]="infoForm.get(field.key).value"
+            (selectionChange)="onEditableSelectChange($event, field.key)"
+            tabindex="-1"
+          >
             <mat-option *ngFor="let item of data.headers" [value]="item.value">
               {{ item.label }}
             </mat-option>

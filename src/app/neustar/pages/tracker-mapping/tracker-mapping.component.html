@@ -42,11 +42,16 @@
                       matInput
                       type="text"
                       class="editable-select-input"
-                      [value]="trackerForm.value[field.key]"
-                      (input)="onEditableSelectInputChange($event, field.key)"
+                      [formControlName]="field.key"
                       (focus)="onFocusEditableSelect(editableSelect, editableSelectInput)"
                     />
-                    <mat-select #editableSelect class="editable-select" [formControlName]="field.key" tabindex="-1">
+                    <mat-select
+                      #editableSelect
+                      class="editable-select"
+                      [value]="trackerForm.get(field.key).value"
+                      (selectionChange)="onEditableSelectChange($event, field.key)"
+                      tabindex="-1"
+                    >
                       <mat-option *ngFor="let item of headers" [value]="item.value">
                         {{ item.label }}
                       </mat-option>

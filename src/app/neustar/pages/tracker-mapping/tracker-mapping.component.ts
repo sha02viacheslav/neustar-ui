@@ -6,7 +6,7 @@ import { ApiService } from '../../../api.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { convertExcelString } from '../../../@core/utils';
-import { MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { DialogService } from '../../../@core/services';
 import { AdditionalMappingComponent } from '../../components/additional-mapping/additional-mapping.component';
 import { CARRIER_LIST } from '../../../@core/constants/carrier-list/carrier-list.constant';
@@ -324,8 +324,8 @@ export class TrackerMappingComponent implements OnInit {
     this.trackerForm.reset();
   }
 
-  onEditableSelectInputChange(event: any, key: string) {
-    const value = event.target.value;
+  onEditableSelectChange(event: MatSelectChange, key: string) {
+    const value = event.value;
     this.trackerForm.get(key).setValue(value);
   }
 

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSelect } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-additional-mapping',
@@ -40,8 +40,8 @@ export class AdditionalMappingComponent {
     this.dialogRef.close(result);
   }
 
-  onEditableSelectInputChange(event: any, key: string) {
-    const value = event.target.value;
+  onEditableSelectChange(event: MatSelectChange, key: string) {
+    const value = event.value;
     this.infoForm.get(key).setValue(value);
   }
 
