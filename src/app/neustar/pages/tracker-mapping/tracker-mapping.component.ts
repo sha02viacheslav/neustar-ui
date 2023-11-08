@@ -319,6 +319,8 @@ export class TrackerMappingComponent implements OnInit {
   }
 
   cancel() {
+    this.sheetNames = [];
+    this.worksheets = {};
     this.headers = [];
     this.succeeded = false;
     this.trackerForm.reset();
@@ -334,11 +336,11 @@ export class TrackerMappingComponent implements OnInit {
     inputElement.selectionStart = inputElement.selectionEnd = inputElement.value.length;
   }
 
-  openMappingModal(key: string) {
+  openMappingModal(key: string, fieldLabel: string) {
     const formControl = this.trackerForm.get(key);
     this.dialogService
       .open(AdditionalMappingComponent, {
-        data: { headers: this.headers, value: formControl.value },
+        data: { headers: this.headers, value: formControl.value, fieldLabel },
         width: '560px',
         autoFocus: false,
       })

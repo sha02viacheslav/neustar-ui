@@ -18,7 +18,8 @@ export class AdditionalMappingComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AdditionalMappingComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { headers: { label: string; value: string }[]; value: string },
+    @Inject(MAT_DIALOG_DATA)
+    public data: { headers: { label: string; value: string }[]; value: string; fieldLabel: string },
   ) {
     this.infoForm = this.fb.group({ primary: [''] }, { secondary: [''] });
     this.buildForm();
