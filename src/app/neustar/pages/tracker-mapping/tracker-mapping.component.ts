@@ -9,6 +9,7 @@ import { convertExcelString } from '../../../@core/utils';
 import { MatSelect } from '@angular/material/select';
 import { DialogService } from '../../../@core/services';
 import { AdditionalMappingComponent } from '../../components/additional-mapping/additional-mapping.component';
+import { CARRIER_LIST } from '../../../@core/constants/carrier-list/carrier-list.constant';
 
 @Component({
   selector: 'app-tracker-mapping',
@@ -16,11 +17,13 @@ import { AdditionalMappingComponent } from '../../components/additional-mapping/
   styleUrls: ['./tracker-mapping.component.scss'],
 })
 export class TrackerMappingComponent implements OnInit {
+  readonly CARRIER_LIST = CARRIER_LIST;
   fields: { label: string; key: string; value?: string; required?: boolean; isInput?: boolean }[] = [
     { label: 'Carrier', key: 'carrier_id', required: true, isInput: true },
     { label: 'Tracker', key: 'tracker', required: true, isInput: true },
     { label: 'Sheet', key: 'sheet', required: true },
     { label: 'Header Row', key: 'header_row', required: true },
+    { label: 'Carrier Name', key: 'carrier_name', required: true },
     { label: 'Domain', key: 'domain', isInput: true },
     { label: 'ACP Path Segment', key: 'acp_path_segment', isInput: true },
     { label: 'Payload Type', key: 'payload_type' },
@@ -259,7 +262,7 @@ export class TrackerMappingComponent implements OnInit {
   }
 
   resetGeneralColumns() {
-    this.fields.slice(4).forEach((field) => {
+    this.fields.slice(7).forEach((field) => {
       this.trackerForm.get(field.key).reset();
     });
   }

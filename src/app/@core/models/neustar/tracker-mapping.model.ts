@@ -4,6 +4,8 @@ export interface NeustarTrackerMapping {
   carrier_name: string;
   sheet: string;
   header_row: number;
+  domain: string;
+  acp_path_segment: string;
   payload_type: string;
   ap_region: string;
   pon: string;
@@ -128,8 +130,6 @@ export interface NeustarTrackerMapping {
   service_term: string;
   notes: string;
   cancel_date: string;
-  domain: string;
-  acp_path_segment: string;
   all_headers: string;
 
   // Temp fields

@@ -15,11 +15,7 @@
 
               <ng-container [ngSwitch]="field.key">
                 <ng-container *ngSwitchCase="'sheet'">
-                  <mat-select
-                    *ngIf="!field.isInput"
-                    [formControlName]="field.key"
-                    (selectionChange)="handleChangeSheet()"
-                  >
+                  <mat-select [formControlName]="field.key" (selectionChange)="handleChangeSheet()">
                     <mat-option *ngFor="let item of sheetNames" [value]="item">
                       {{ item }}
                     </mat-option>
@@ -28,6 +24,14 @@
 
                 <ng-container *ngSwitchCase="'header_row'">
                   <input type="number" [formControlName]="field.key" (change)="handleChangeHeaderRow()" matInput />
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'carrier_name'">
+                  <mat-select [formControlName]="field.key">
+                    <mat-option *ngFor="let item of CARRIER_LIST" [value]="item">
+                      {{ item }}
+                    </mat-option>
+                  </mat-select>
                 </ng-container>
 
                 <ng-container *ngSwitchDefault>
@@ -56,7 +60,9 @@
             </mat-form-field>
 
             <button
-              *ngIf="!field.isInput && field.key !== 'sheet' && field.key !== 'header_row'"
+              *ngIf="
+                !field.isInput && field.key !== 'sheet' && field.key !== 'header_row' && field.key !== 'carrier_name'
+              "
               class="add-button"
               mat-icon-button
               (click)="openMappingModal(field.key)"
