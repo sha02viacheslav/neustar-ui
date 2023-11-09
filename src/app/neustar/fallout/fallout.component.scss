@@ -94,9 +94,14 @@ tr.element-row:not(.expanded-row):active {
 .list-item {
   margin: 8px 16px;
   display: flex;
+  flex-wrap: wrap;
 
-  strong {
+  .label {
     width: 190px;
+  }
+
+  .content {
+    width: calc(100% - 190px);
   }
 }
 

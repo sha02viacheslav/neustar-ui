@@ -91,17 +91,26 @@
       <ng-container matColumnDef="expandedDetail">
         <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
           <div class="expand-wrap" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
-            <div class="list-item"><strong>Upload Status: </strong>{{ element.template_upload_status }}</div>
             <div class="list-item">
-              <strong>Total Records: </strong>{{ element.total_count }}
-              <div>
-                <div><span>Successes: </span>{{ element.success_count }}</div>
-                <div><span>Errors: </span>{{ element.error_count }}</div>
-                <div><span>Validated: </span>{{ element.validation_count }}</div>
-                <div><span>Validation Result: </span>{{ element.validation_result }}</div>
-              </div>
+              <strong class="label">Upload Status: </strong>
+              <span class="content">{{ element.template_upload_status }}</span>
             </div>
-            <div class="list-item"><strong>Exception Logs: </strong>{{ element.exception_logs }}</div>
+            <div class="list-item">
+              <strong class="label">Total Records: </strong>
+              <span class="content">
+                <div>{{ element.total_count }}</div>
+                <div class="mt-1">
+                  <div class="mb-1"><span>Successes: </span>{{ element.success_count }}</div>
+                  <div class="mb-1"><span>Errors: </span>{{ element.error_count }}</div>
+                  <div class="mb-1"><span>Validated: </span>{{ element.validation_count }}</div>
+                  <div class="mb-1"><span>Validation Result: </span>{{ element.validation_result }}</div>
+                </div>
+              </span>
+            </div>
+            <div class="list-item">
+              <strong class="label">Exception Logs: </strong>
+              <span class="content">{{ element.exception_logs }}</span>
+            </div>
           </div>
         </td>
       </ng-container>
