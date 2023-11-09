@@ -23,7 +23,7 @@ export class TrackerMappingComponent implements OnInit {
     { label: 'Tracker', key: 'tracker', required: true, isInput: true },
     { label: 'Sheet', key: 'sheet', required: true },
     { label: 'Header Row', key: 'header_row', required: true },
-    { label: 'Carrier Name', key: 'carrier_name', required: true },
+    { label: 'Carrier Name', key: 'carrier_name' },
     { label: 'Domain', key: 'domain', isInput: true },
     { label: 'ACP Path Segment', key: 'acp_path_segment', isInput: true },
     { label: 'Payload Type', key: 'payload_type' },

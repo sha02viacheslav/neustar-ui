@@ -97,7 +97,10 @@
     <div class="description">New tracker mapping saved</div>
 
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="16">
-      <button mat-raised-button color="primary" (click)="cancel()">Add Another Tracker</button>
+      <button *ngIf="!isEdit" mat-raised-button color="primary" (click)="cancel()">Add Another Tracker</button>
+      <button *ngIf="isEdit" mat-raised-button color="primary" routerLink="/tracker-mapping">
+        Add Another Tracker
+      </button>
       <button mat-raised-button color="primary" routerLink="/tracker-mapping-list">View Tracker Mappings</button>
       <button mat-raised-button color="primary" routerLink="/fallout">Return to Fallout</button>
     </div>
