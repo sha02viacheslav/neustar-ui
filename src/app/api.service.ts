@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  prodUrl = 'http://neustar-order-insights-api.as-g8.cf.comcast.net/';
+  prodUrl = 'https://neustar-order-insights-api.ho-g2.cf.comcast.net';
   apiUrl = environment.production ? this.prodUrl : 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}

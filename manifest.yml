@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: neustar-order-insights
+  - name: neustar-order-insights-ui
     path: ./
     memory: 256MB
     disk_quota: 500MB
