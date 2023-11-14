@@ -63,3 +63,8 @@
 .d-none {
   display: none;
 }
+
+.mat-elevation-z8 .mdc-data-table__header-cell {
+  font-weight: 700;
+  color: $core-blue;
+}

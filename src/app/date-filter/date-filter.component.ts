@@ -24,7 +24,6 @@ export class DateFilterComponent implements OnInit {
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
-    type: new FormControl<DateRangeType | null>(null),
   });
   type: DateRangeType = DateRangeType.CUSTOM;
 
@@ -91,5 +90,6 @@ export class DateFilterComponent implements OnInit {
 
   public clear() {
     this.range.patchValue({ start: null, end: null });
+    this.type = DateRangeType.CUSTOM;
   }
 }

@@ -15,6 +15,7 @@ import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { BlockUIService } from 'ng-block-ui';
 import { DateFilterComponent } from '../../date-filter/date-filter.component';
 import { DateRangeType } from '@enums';
+import { SearchComponent } from '../../shared/components/search/search.component';
 
 // TODO: add unsubscribe Subject and takeUntil for all subscribers
 
@@ -36,7 +37,6 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     'end_time',
     'carrierid',
     'tracker_file_path',
-    'bot_execution_status',
     'exception',
     'invalid_pon_count',
     'retry',
@@ -73,7 +73,8 @@ export class FalloutComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('dateFilter') dateFilterComponent: DateFilterComponent;
+  @ViewChild('dateFilterComponent') dateFilterComponent: DateFilterComponent;
+  @ViewChild('searchComponent') searchComponent: SearchComponent;
 
   constructor(
     private apiService: ApiService,
@@ -218,6 +219,14 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     });
   }
 
+  clearFilters() {
+    this.dateFilterComponent.clear();
+    this.dateRange = null;
+    this.dateFilter = null;
+    this.searchComponent.clearSearch();
+    this.loadData();
+  }
+
   exportXls() {
     this.blockUIService.start('APP', `Loading...`);
     this.apiService
@@ -266,7 +275,7 @@ export class FalloutComponent implements OnInit, AfterViewInit {
           const wb = XLSX.utils.book_new();
           const ws = XLSX.utils.json_to_sheet(sanitizedData);
           XLSX.utils.book_append_sheet(wb, ws, 'Blank');
-          XLSX.writeFile(wb, `Neustar_Order_Insights_Fallout.xlsx`);
+          XLSX.writeFile(wb, `Neustar_Order_Insights_Fallout_${moment().format('YYYY-MM-DD-HH-mm-ss')}.xlsx`);
         }),
         catchError((err) => {
           this.blockUIService.stop('APP');

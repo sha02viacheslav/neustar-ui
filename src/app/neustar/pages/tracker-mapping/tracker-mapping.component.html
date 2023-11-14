@@ -1,5 +1,5 @@
 <div class="page-wrap">
-  <app-back-link *ngIf="isEdit" defaultBackTo="/" style="justify-content: left"></app-back-link>
+  <app-back-link defaultBackTo="/" style="justify-content: left"></app-back-link>
 
   <ng-container *ngIf="!succeeded">
     <ng-container *ngIf="sheetNames?.length; else importButton">
@@ -10,8 +10,7 @@
             <div class="page-subtitle">Fields with an asterisk (*) are required</div>
           </div>
           <div class="d-flex gap-3">
-            <button *ngIf="!isEdit" mat-raised-button (click)="cancel()">Cancel</button>
-            <button *ngIf="isEdit" mat-raised-button routerLink="/tracker-mapping-list">Cancel</button>
+            <button mat-raised-button routerLink="/tracker-mapping-list">Cancel</button>
             <button mat-raised-button color="primary" (click)="submit()">{{ isEdit ? 'Save' : 'Submit' }}</button>
           </div>
         </div>
@@ -86,14 +85,13 @@
       </form>
 
       <div fxLayout="row" fxLayoutAlign="space-between" class="submit-wrap">
-        <button *ngIf="!isEdit" mat-raised-button (click)="cancel()">Cancel</button>
-        <button *ngIf="isEdit" mat-raised-button routerLink="/tracker-mapping-list">Cancel</button>
+        <button mat-raised-button routerLink="/tracker-mapping-list">Cancel</button>
         <button mat-raised-button color="primary" (click)="submit()">{{ isEdit ? 'Save' : 'Submit' }}</button>
       </div>
     </ng-container>
 
     <ng-template #importButton>
-      <div *ngIf="!isEdit">
+      <div *ngIf="!isEdit" class="d-flex justify-content-center align-items-center new-button-wrap">
         <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Tracker</button>
       </div>
     </ng-template>
