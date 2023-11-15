@@ -223,7 +223,12 @@ export class FalloutComponent implements OnInit, AfterViewInit {
     this.dateFilterComponent.clear();
     this.dateRange = null;
     this.dateFilter = null;
-    this.searchComponent.clearSearch();
+    if (this.search) {
+      // Clear search will run getList()
+      this.searchComponent.clearSearch();
+    } else {
+      this.getList();
+    }
     this.loadData();
   }
 

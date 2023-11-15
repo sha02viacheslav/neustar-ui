@@ -1,6 +1,4 @@
 <div class="page-wrap">
-  <app-back-link defaultBackTo="/" style="justify-content: left"></app-back-link>
-
   <ng-container *ngIf="!succeeded">
     <ng-container *ngIf="sheetNames?.length; else importButton">
       <form [formGroup]="trackerForm" class="form-wrap">
@@ -91,9 +89,12 @@
     </ng-container>
 
     <ng-template #importButton>
-      <div *ngIf="!isEdit" class="d-flex justify-content-center align-items-center new-button-wrap">
-        <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Tracker</button>
-      </div>
+      <ng-container *ngIf="!isEdit">
+        <app-back-link defaultBackTo="/" style="justify-content: left"></app-back-link>
+        <div class="d-flex justify-content-center align-items-center new-button-wrap">
+          <button mat-raised-button color="primary" (click)="fileInput.click()">Upload Tracker</button>
+        </div>
+      </ng-container>
     </ng-template>
   </ng-container>
 
