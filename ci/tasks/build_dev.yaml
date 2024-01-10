@@ -1,0 +1,19 @@
+---
+platform: linux
+image_resource:
+  type: registry-image
+  source: {
+    repository: node,
+    tag: "18"
+  }
+inputs:
+  - name: neustar-order-insights-ui-dev
+params:
+  VAULT_TOKEN: ((configs.vault-token))
+  VAULT_PATH: ((configs.vault-path))
+outputs:
+  - name: build
+run:
+  path: /bin/bash
+  args:
+    -  neustar-order-insights-ui-dev/ci/scripts/build_dev.sh
