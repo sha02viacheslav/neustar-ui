@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-breakdown-table',
@@ -9,6 +10,6 @@ export class BreakdownTableComponent {
   @Input() title: string;
   @Input() dateHeader: string;
   @Input() dateFormat: string;
-  @Input() data: any[] = [];
+  @Input() data: MatTableDataSource<{ date: string }> = new MatTableDataSource([]);
   displayedColumns: string[] = [''];
 }

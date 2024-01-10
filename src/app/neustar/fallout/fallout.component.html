@@ -24,8 +24,8 @@
         {{ option.label }}
       </mat-button-toggle>
     </mat-button-toggle-group>
-    <app-date-filter #dateFilterComponent (onChange)="handleChangeDateFilter($event)"></app-date-filter>
-    <app-search #searchComponent (onChange)="handleChangeSearch($event)"></app-search>
+    <app-date-filter #dateFilterComponent (dateChanged)="handleChangeDateFilter($event)"></app-date-filter>
+    <app-search #searchComponent (searchChanged)="handleChangeSearch($event)"></app-search>
     <button *ngIf="search || dateRange || dateFilter" mat-raised-button (click)="clearFilters()">Clear Filters</button>
     <button mat-raised-button (click)="exportXls()">Export</button>
   </div>

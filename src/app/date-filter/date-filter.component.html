@@ -33,9 +33,9 @@
     "
     class="w-50"
   >
-    <app-week-selector *ngIf="type === DateRangeType.WEEK" (onChange)="handleChangeDate($event)" />
-    <app-month-selector *ngIf="type === DateRangeType.MONTH" (onChange)="handleChangeDate($event)" />
-    <app-quarter-selector *ngIf="type === DateRangeType.QUARTER" (onChange)="handleChangeDate($event)" />
-    <app-year-selector *ngIf="type === DateRangeType.YEARLY" (onChange)="handleChangeDate($event)" />
+    <app-week-selector *ngIf="type === DateRangeType.WEEK" (weekChanged)="handleChangeDate($event)" />
+    <app-month-selector *ngIf="type === DateRangeType.MONTH" (monthChanged)="handleChangeDate($event)" />
+    <app-quarter-selector *ngIf="type === DateRangeType.QUARTER" (quarterChanged)="handleChangeDate($event)" />
+    <app-year-selector *ngIf="type === DateRangeType.YEARLY" (yearChanged)="handleChangeDate($event)" />
   </div>
 </div>

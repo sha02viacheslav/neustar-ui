@@ -1,19 +1,17 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { NeustarTemplateUpload } from '@models';
 import { debounceTime, merge } from 'rxjs';
 import { sanitizeData } from 'src/app/@core/utils';
 import { ApiService } from 'src/app/api.service';
 import { ToastrService } from 'ngx-toastr';
-import * as moment from 'moment';
 import { BlockUIService } from 'ng-block-ui';
 
 // TODO: update rawWhere
@@ -31,7 +29,7 @@ import { BlockUIService } from 'ng-block-ui';
     ]),
   ],
 })
-export class ListComponent {
+export class ListComponent implements AfterViewInit {
   // import enum: readonly SummaryType = SummaryType;
   // summaryType: SummaryType;
   displayedColumns: string[] = [
@@ -61,19 +59,19 @@ export class ListComponent {
     private blockUIService: BlockUIService,
   ) {}
 
-  ngOnInit(): void {
-    // this.route.paramMap.subscribe((params) => {
-    //   if (params.has('summaryType')) {
-    //     const summaryType = params.get('summaryType');
-    //     if (summaryType) {
-    //       this.summaryType = summaryType as SummaryType;
-    //       this.getList();
-    //       // TODO: Add enum switchcase
-    //       }
-    //     }
-    //   }
-    // });
-  }
+  // ngOnInit(): void {
+  //   this.route.paramMap.subscribe((params) => {
+  //     if (params.has('summaryType')) {
+  //       const summaryType = params.get('summaryType');
+  //       if (summaryType) {
+  //         this.summaryType = summaryType as SummaryType;
+  //         this.getList();
+  //         // TODO: Add enum switchcase
+  //         }
+  //       }
+  //     }
+  //   });
+  // }
 
   ngAfterViewInit() {
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
@@ -90,7 +88,7 @@ export class ListComponent {
     this.getList();
   }
 
-  handleChangeType(event: MatButtonToggleChange) {
+  handleChangeType() {
     this.getList();
   }
 

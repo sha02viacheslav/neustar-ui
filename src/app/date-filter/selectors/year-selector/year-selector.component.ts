@@ -32,7 +32,7 @@ export const MY_FORMATS = {
   ],
 })
 export class YearSelectorComponent {
-  @Output() onChange = new EventEmitter<Date>();
+  @Output() yearChanged = new EventEmitter<Date>();
   date = new FormControl(moment());
 
   setYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {

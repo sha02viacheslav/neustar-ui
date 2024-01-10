@@ -7,7 +7,7 @@ import * as moment from 'moment';
   styleUrls: ['./quarter-selector.component.scss'],
 })
 export class QuarterSelectorComponent {
-  @Output() onChange = new EventEmitter<Date>();
+  @Output() quarterChanged = new EventEmitter<Date>();
   year = new Date().getFullYear();
   quarter: number | undefined;
 

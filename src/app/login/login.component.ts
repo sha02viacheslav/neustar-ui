@@ -2,18 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { SsoConfig } from '../@core/config.core';
 import { DOCUMENT } from '@angular/common';
 
-
 @Component({
-  selector: 'ngx-login-component',
+  selector: 'app-login-component',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-
 export class LoginComponent implements OnInit {
   currentTheme: string;
-  constructor(
-    @Inject(DOCUMENT) private document: Document,
-  ) { }
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit() {
     this.onSsoLogin();

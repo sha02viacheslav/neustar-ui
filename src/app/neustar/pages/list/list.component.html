@@ -3,14 +3,14 @@
   <!-- TODO: edit titles -->
   <h1>{{ titles[0] }}</h1>
   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="16">
-    <mat-button-toggle-group (change)="handleChangeType($event)" appearance="legacy">
+    <mat-button-toggle-group (change)="handleChangeType()" appearance="legacy">
       <mat-button-toggle *ngFor="let option of typeOptions" [value]="option.value">{{
         option.label
       }}</mat-button-toggle>
     </mat-button-toggle-group>
     <button mat-raised-button (click)="exportXls()">Export</button>
-    <app-date-filter (onChange)="handleChangeDateFilter($event)"></app-date-filter>
-    <app-search (onChange)="handleChangeSearch($event)"></app-search>
+    <app-date-filter (dateChanged)="handleChangeDateFilter($event)"></app-date-filter>
+    <app-search (searchChanged)="handleChangeSearch($event)"></app-search>
   </div>
 
   <div class="table-container">

@@ -3,7 +3,7 @@
   <mat-select [(ngModel)]="quarter" (ngModelChange)="handleSelect()">
     <mat-select-trigger> {{ year }} Quarter {{ quarter }} </mat-select-trigger>
     <mat-option class="year-selector-option">
-      <div class="year-selector" (click)="$event.stopPropagation()">
+      <div class="year-selector" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" tabindex="-1">
         <button mat-icon-button (click)="handlePreYear($event)">
           <mat-icon>chevron_left</mat-icon>
         </button>

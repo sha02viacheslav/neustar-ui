@@ -12,7 +12,7 @@ export class DialogService {
     private mediaService: MediaService,
   ) {}
 
-  open(component: ComponentType<unknown>, options?: MatDialogConfig<any>) {
+  open(component: ComponentType<unknown>, options?: MatDialogConfig<unknown>) {
     this.closeAll();
     const defaultOptions = this.mediaService.isMobile()
       ? {

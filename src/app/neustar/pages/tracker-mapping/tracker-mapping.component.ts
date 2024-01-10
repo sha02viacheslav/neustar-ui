@@ -203,15 +203,16 @@ export class TrackerMappingComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
+  onFileChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const file = inputElement.files?.[0];
 
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
+      reader.onload = (e: ProgressEvent<FileReader>) => {
         const workbook = XLSX.read(e.target.result, { type: 'array' });
 
-        event.target.value = '';
+        inputElement.value = '';
 
         setTimeout(() => {
           this.sheetNames = workbook.SheetNames;

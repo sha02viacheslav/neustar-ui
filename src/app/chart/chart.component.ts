@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Chart, ChartConfiguration, ChartItem, ChartData, registerables, ChartType, ChartOptions } from 'chart.js';
 
 @Component({

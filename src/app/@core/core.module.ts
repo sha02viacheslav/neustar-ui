@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { Observable } from 'rxjs';
-import { ServerDetails } from '../@core/config.core';
+import { ServerDetails } from './config.core';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { AnalyticsService } from './utils';
@@ -11,9 +11,7 @@ import { UserData } from './data/abstracts/user-data.abstract';
 import { UserService } from './services/user.service';
 import { HttpClient } from '@angular/common/http';
 
-const DATA_SERVICES = [
-  { provide: UserData, useClass: UserService },
-];
+const DATA_SERVICES = [{ provide: UserData, useClass: UserService }];
 @Injectable({ providedIn: 'root' })
 export class NbSimpleRoleProvider extends NbRoleProvider {
   constructor(private http: HttpClient) {
@@ -21,13 +19,16 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
   }
 
   getRole() {
-    return new Observable<string>(obs => {
-      this.http.get(`${ServerDetails.baseUrl}/auth/session`, { withCredentials: true }).subscribe((resp: any) => {
-        obs.next(resp.data.role);
-      }, (error: any) => {
-        console.log(error);
-        obs.next('admin');
-      });
+    return new Observable<string>((obs) => {
+      this.http.get(`${ServerDetails.baseUrl}/auth/session`, { withCredentials: true }).subscribe(
+        (resp: { data: { role: string } }) => {
+          obs.next(resp.data.role);
+        },
+        (error) => {
+          console.log(error);
+          obs.next('admin');
+        },
+      );
     });
   }
 }
@@ -35,7 +36,6 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
 export const NB_CORE_PROVIDERS = [
   ...DATA_SERVICES,
   ...NbAuthModule.forRoot({
-
     strategies: [
       NbDummyAuthStrategy.setup({
         name: 'email',
@@ -61,18 +61,15 @@ export const NB_CORE_PROVIDERS = [
   }).providers,
 
   {
-    provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    provide: NbRoleProvider,
+    useClass: NbSimpleRoleProvider,
   },
   AnalyticsService,
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    NbAuthModule,
-  ],
+  imports: [CommonModule],
+  exports: [NbAuthModule],
   declarations: [],
 })
 export class CoreModule {
@@ -80,12 +77,10 @@ export class CoreModule {
     throwIfAlreadyLoaded(parentModule, 'CoreModule');
   }
 
-  static forRoot(): ModuleWithProviders {
-    return <ModuleWithProviders>{
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
       ngModule: CoreModule,
-      providers: [
-        ...NB_CORE_PROVIDERS,
-      ],
+      providers: [...NB_CORE_PROVIDERS],
     };
   }
 }

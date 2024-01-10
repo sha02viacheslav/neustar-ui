@@ -9,7 +9,7 @@ import { DateRangeType } from '@enums';
   styleUrls: ['./date-filter.component.scss'],
 })
 export class DateFilterComponent implements OnInit {
-  @Output() onChange = new EventEmitter<{ start: string; end: string }>();
+  @Output() dateChanged = new EventEmitter<{ start: string; end: string }>();
   readonly DateRangeType = DateRangeType;
 
   DATE_RANGE_ITEMS = [
@@ -31,7 +31,7 @@ export class DateFilterComponent implements OnInit {
     this.range.valueChanges.subscribe(() => {
       const { start, end } = this.range.value;
       if (this.range.valid && start && end) {
-        this.onChange.next({
+        this.dateChanged.next({
           start: moment(start).format('YYYY-MM-DD'),
           end: moment(end).format('YYYY-MM-DD'),
         });

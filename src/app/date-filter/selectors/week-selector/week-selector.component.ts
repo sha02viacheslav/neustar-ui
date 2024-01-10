@@ -9,26 +9,26 @@ import { DateAdapter } from '@angular/material/core';
 import * as moment from 'moment';
 
 @Injectable()
-export class FiveDayRangeSelectionStrategy implements MatDateRangeSelectionStrategy<string> {
+export class FiveDayRangeSelectionStrategy implements MatDateRangeSelectionStrategy<Date> {
   constructor(private _dateAdapter: DateAdapter<string>) {}
 
-  selectionFinished(date: string | null): DateRange<string> {
+  selectionFinished(date: Date | null): DateRange<Date> {
     return this._createFiveDayRange(date);
   }
 
-  createPreview(activeDate: string | null): DateRange<string> {
+  createPreview(activeDate: Date | null): DateRange<Date> {
     return this._createFiveDayRange(activeDate);
   }
 
-  private _createFiveDayRange(date: string | null): DateRange<any> {
+  private _createFiveDayRange(date: Date | null): DateRange<Date> {
     if (date) {
       const d = moment(date);
       const start = d.startOf('week').toDate();
       const end = d.endOf('week').toDate();
-      return new DateRange<any>(start, end);
+      return new DateRange<Date>(start, end);
     }
 
-    return new DateRange<string>(null, null);
+    return new DateRange<Date>(null, null);
   }
 }
 
@@ -44,11 +44,11 @@ export class FiveDayRangeSelectionStrategy implements MatDateRangeSelectionStrat
   ],
 })
 export class WeekSelectorComponent {
-  @Output() onChange = new EventEmitter<Date>();
+  @Output() weekChanged = new EventEmitter<Date>();
   constructor() {}
 
   handleSelect(event: MatDatepickerInputEvent<Date>) {
     const date = event.value;
-    if (date) this.onChange.emit(date);
+    if (date) this.weekChanged.emit(date);
   }
 }

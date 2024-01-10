@@ -1,5 +1,5 @@
 import { Injectable, Inject, OnDestroy } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ServerDetails } from '../config.core';

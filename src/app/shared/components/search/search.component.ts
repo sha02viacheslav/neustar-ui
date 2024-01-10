@@ -7,13 +7,13 @@ import { debounceTime, Subject } from 'rxjs';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  @Output() onChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
   search = '';
   searchInput$: Subject<string> = new Subject<string>();
 
   ngOnInit() {
     this.searchInput$.pipe(debounceTime(600)).subscribe(() => {
-      this.onChange.emit(this.search);
+      this.searchChanged.emit(this.search);
     });
   }
 

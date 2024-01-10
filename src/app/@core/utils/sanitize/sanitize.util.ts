@@ -11,7 +11,7 @@ export const sanitizeData = (data) => {
           sanitizedItem[key] = value
             .replace(/"/g, '""') // Escape existing double quotes
             .replace(/'/g, '"') // Replace single quotes with double quotes
-            .replace(/^[\+=-@\t\n\r]/g, ''); // Regex replace with empty string
+            .replace(/^[+=-@\t\n\r]/g, ''); // Regex replace with empty string
         }
       }
     }
