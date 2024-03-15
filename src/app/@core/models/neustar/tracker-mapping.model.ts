@@ -6,6 +6,7 @@ export interface NeustarTrackerMapping {
   header_row: number;
   domain: string;
   acp_path_segment: string;
+  offnet_vendor_name: string;
   payload_type: string;
   ap_region: string;
   pon: string;

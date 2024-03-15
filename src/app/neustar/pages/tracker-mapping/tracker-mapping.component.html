@@ -38,6 +38,14 @@
                   </mat-select>
                 </ng-container>
 
+                <ng-container *ngSwitchCase="'offnet_vendor_name'">
+                  <mat-select [formControlName]="field.key">
+                    <mat-option *ngFor="let item of OFFNET_VENDOR_NAME_LIST" [value]="item">
+                      {{ item }}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+
                 <ng-container *ngSwitchDefault>
                   <input *ngIf="field.isInput" type="text" [formControlName]="field.key" matInput />
                   <ng-container *ngIf="!field.isInput">
