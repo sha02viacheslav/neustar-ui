@@ -16,7 +16,7 @@ export class QuarterSelectorComponent {
       const date = new Date();
       date.setFullYear(this.year);
       date.setMonth((this.quarter - 1) * 3);
-      this.onChange.next(moment(date).startOf('month').toDate());
+      this.quarterChanged.next(moment(date).startOf('month').toDate());
     }
   }
 

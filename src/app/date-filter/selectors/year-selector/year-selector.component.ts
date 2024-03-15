@@ -40,6 +40,6 @@ export class YearSelectorComponent {
     ctrlValue.year(normalizedMonthAndYear.year());
     this.date.setValue(ctrlValue);
     datepicker.close();
-    this.onChange.emit(ctrlValue.toDate());
+    this.yearChanged.emit(ctrlValue.toDate());
   }
 }

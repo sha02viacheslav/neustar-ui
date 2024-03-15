@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 //import { UserService } from '../../@core/services/user.service';
 
 @Component({
-  selector: 'ngx-ssoAuth-component',
+  selector: 'app-sso-auth-component',
   templateUrl: './ssoAuth.component.html',
   styleUrls: ['./ssoAuth.component.scss'],
 })

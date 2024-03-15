@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { Injectable, OnDestroy } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { UserService } from '../services/user.service';
+import { IUser } from '../data/interfaces/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate, OnDestroy {
@@ -15,7 +16,7 @@ export class AuthGuard implements CanActivate, OnDestroy {
         return new Observable(sub => {
             this.loginService.validateSession()
                 .pipe(
-                    tap((res: any) => {
+                    tap((res: { status: string; user: IUser }) => {
                         if (res.status === 'authenticated') {
                             this.userService.user = res.user;
                             sub.next(true);
